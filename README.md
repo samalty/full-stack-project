@@ -1,5 +1,7 @@
 # Full-stack frameworks milestone project
 
+[![Build Status](https://travis-ci.org/samalty/full-stack-project.svg?branch=master)](https://travis-ci.org/samalty/full-stack-project)
+
 This is project management web application which provides companies with a simple and effective means of informing and updating 
 their clients on the progress of ongoing projects. The premise is that a company would white-label the application, open its own 
 administrators account, and invite its clients to set up their own account.

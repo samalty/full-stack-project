@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block page_title %}{{ user }}'s Profile{% endblock %}
+{% block content %}
+<div class="row" id="header">
+    <div class="col-12">
+        <br>
+        <h1><center>Hi {{ user }}. Welcome to your profile!</center></h1>
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-1 col-sm-12">
+            <!-- Empty for styling purposes -->
+        </div>
+        <div class="col-lg-6 col-md-10 col-sm-12">
+            <br>
+            <div id="bio-container">
+                <div class="row">
+                    <div class="col-md-5 col-sm-12">
+                        <img src="{{ user.userprofile.image.url }}" class="profile" height="150px" width="150px">
+                    </div>
+                    <div class="col-md-7 col-sm-12">
+                        <br>
+                        <h2><b><center>{{ user }}</center></b></h2>
+                        <h3><b><center>{{ user.email }}</center></b></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <br>
+                        <p><b>Bio: </b>{{ user.userprofile.bio }}</p>
+                        <p><b>Location: </b>{{ user.userprofile.location }}</p>
+                        <p><b>Website: </b><a href="{{ user.userprofile.website }}">{{ user.userprofile.website }}</a></p>
+                        <br>
+                        <p><a href="{% url 'edit_profile' %}">Edit your account</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-1 col-sm-0">
+            <!-- Empty for styling purposes -->
+        </div>
+    </div>
+</div>
+{% endblock %}

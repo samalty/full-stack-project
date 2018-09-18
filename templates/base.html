@@ -1,32 +1,55 @@
+{% load static from staticfiles %}
 <!DOCTYPE html>
 <html>
     <head>
         <title>{% block page_title %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="https://fonts.googleapis.com/css?family=Audiowide|Bree+Serif|Carter+One|Do+Hyeon|Doppio+One|Fira+Sans+Extra+Condensed" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        
     </head>
     <body>
-        <nav>
-            <ul>
+        <nav class="navbar navbar-expand-lg">
+          <a class="navbar-brand" href="#">
+              <img src="../media/iprofile_image/image2.jpg" width="30" height="30" class="d-inline-block align-top" alt="">Brand Name
+          </a>
+          <!--
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          -->
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
-                  <li><a href="{% url 'profile' %}">Home</a></li>
-                  <li><a href="#">Inbox</a></li>
-                  <li><a href="#">Blog</a></li>
-                  <li><a href="{% url 'logout' %}">Logout</a></li>
+                  <a class="nav-item nav-link" href="#">Dashboard</a>
+                  <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                  <a class="nav-item nav-link" href="#">Inbox</a>
+                  <a class="nav-item nav-link" href="{% url 'get_posts' %}">Forum</a>
+                  <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
                 {% else %}
-                  <li><a href="{% url 'login' %}">Login</a></li>
+                  <a class="nav-item nav-link" href="{% url 'index' %}">Register</a>
+                  <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
                 {% endif %}
-            </ul>
-        </nav>
-        <hr>
-        <h1>{% block page_heading %}{% endblock %}</h1>
-        <br>
-        {% if messages %}
-            <div>
-              {% for message in messages %}
-                {{ message }}
-              {% endfor %}
             </div>
-            <br>
-        {% endif %}
-        {% block content %}{% endblock %}
+          </div>
+        </nav>
+        <br>
+        <hr>
+        <body>
+        {% block content %}
+        {% endblock %}
+        </body>
+        <br>
+        <!-- Footer -->
+        <footer>
+            <div class="col-12">
+                <p>Copyright &copy; ... 2018</p>
+            </div>
+        </footer>
     </body>
 </html>

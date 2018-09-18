@@ -2,10 +2,46 @@
 {% block page_title %}Login{% endblock %}
 {% block page_heading %}Login{% endblock %}
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-        {{ login_form }}
-        <button type="submit">Login</button>
-    </form>
+    <div class="row" id="header">
+        <div class="col-12">
+            <br>
+            <h1><center>Welcome to Brand Name's project manager</center></h1>
+            <br>
+            <div class="container">
+                <p class="header-desc">Login below to see how your project is progressing, or <a href="{% url 'index' %}">
+                register for an account here</a>.</p>
+            </div>
+        </div>
+    </div>
     <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-0">
+                <!-- Empty for styling purposes -->
+            </div>
+            <div class="col-md-6 col-sm-12">
+            <br>
+                {% if messages %}
+                    <div class="popup-container">
+                      {% for message in messages %}
+                        <p class="popup-message">
+                          {{ message }}
+                        </p>
+                      {% endfor %}
+                    </div>
+                {% endif %}
+                <br>
+                <form method="POST">
+                    <legend>Login</legend>
+                    {% csrf_token %}
+                    {{ login_form.as_p }}
+                    <button type="submit">Login</button>
+                </form>
+                <br>
+            </div>
+            <div class="col-md-3 col-sm-0">
+                <!-- Empty for styling purposes -->
+            </div>
+        </div>
+    </div>
 {% endblock %}

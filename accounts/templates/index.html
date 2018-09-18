@@ -1,12 +1,48 @@
 {% extends 'base.html' %}
 {% block page_title %}Index{% endblock %}
-{% block page_heading %}Welcome{% endblock %}
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    {{ registration_form.as_p }}
-    <button type="submit">Register</button>
-</form>
-<br>
-<p>If you're an existing user, you can <a href="{% url 'login' %}">login here</a>.</p>
+    <div class="row" id="header">
+        <div class="col-12">
+            <br>
+            <h1><center>Welcome to Brand Name's project manager</center></h1>
+            <br>
+            <div class="container">
+                <p class="header-desc">To help ensure that we deliver your project exactly how you envisaged it, 
+                while keeping you in the loop every step of the way, we have invited you to register 
+                as a member of our project manager application. Here you can keep tabs on the status 
+                of projects, and provide input should your project scope or priorities change.</p>
+                <p class="header-desc">If you're already an existing user, you can <a href="{% url 'login' %}">login 
+                to your account here</a>.</p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-0">
+                <!-- Empty for styling purposes -->
+            </div>
+            <div class="col-md-6 col-sm-12">
+            <br>
+                {% if messages %}
+                    <div>
+                      {% for message in messages %}
+                        {{ message }}
+                      {% endfor %}
+                    </div>
+                {% endif %}
+                <br>
+                <form method="POST">
+                    <legend>Register</legend>
+                    {% csrf_token %}
+                    {{ registration_form.as_p }}
+                    <button type="submit">Register</button>
+                </form>
+                <br>
+            </div>
+            <div class="col-md-3 col-sm-0">
+                <!-- Empty for styling purposes -->
+            </div>
+        </div>
+    </div>
 {% endblock %}

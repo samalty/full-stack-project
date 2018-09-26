@@ -1,0 +1,321 @@
+{% extends 'base.html' %}
+{% block page_title %}{{ user }}'s Dashboard{% endblock %}
+{% block content %}
+    <div class="row" id="header">
+        <div class="col-12">
+            <br>
+            <h1><center>{{ user }}'s Dashboard</center></h1>
+            <br>
+            <div class="container">
+                <p class="header-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad 
+                minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
+                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit 
+                esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
+                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div style="overflow-x:scroll">
+                    <table class="dashboard-table">
+                        <tr>
+                            {% for project in projects %}
+                            <th class="{% if project.signed_off == True %} status_green {% elif project.task1_status != 'To Do' %} status_orange {% else %} status_red {% endif %}">
+                                <p class="project_status">{{ project.project_title }}</p>
+                            </th>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for project in projects %}
+                            <td class="{% if project.signed_off == True %} status_green {% elif project.task1_status != 'To Do' %} status_orange {% else %} status_red {% endif %}">
+                                <p class="project_status">Project status: {{ project.project_status }}</p>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for project in projects %}
+                            <td class="edit-container">
+                                <a class="btn btn-primary" href="{% url 'project_detail' pk=project.pk %}" role="button" id="edit">Edit <i class="material-icons" style="font-size:20px;">edit</i></a>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for project in projects %}
+                            <td>
+                                <div id="accordion">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                                                <div class="row">
+                                                    <div class="col-10">
+                                                        <p class="project_sheet">Project Summary</p>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <i class="material-icons" style="font-size:24rpx;color:black;float:right;">expand_more</i>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div id="collapseOne" class="collapse hide" data-parent="#accordion">
+                                            <div class="card-body">
+                                                {{ project.description }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for project in projects %}
+                            <td>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="project_sheet">Client: </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="project_sheet_tasks" style="float:right">{{ project.client }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for project in projects %}
+                            <td>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="project_sheet">Fee: </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="project_sheet_tasks" style="float:right">£{{ project.fee }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for project in projects %}
+                            <td>
+                            <div class="row">
+                                <div class="col-9">
+                                    <p class="project_sheet">Project approved: </p>
+                                </div>
+                                <div class="col-3">
+                                    {% if project.approved == True %}
+                                        <i class="material-icons" style="font-size:36px;color:#009963;float:right;">check_box</i>
+                                    {% else %}
+                                        <i class="material-icons" style="font-size:36px;color:#cc0000;float:right;">close</i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for project in projects %}
+                            <td>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <p class="project_sheet">Deadline:</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="project_sheet_tasks" style="float:right">{{ project.deadline }}</p>
+                                    </div>
+                                </div>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for project in projects %}
+                            <td>
+                                <div class="row">
+                                    <div class="col-9">
+                                        <p class="project_sheet">Priority: </p>
+                                    </div>
+                                    <div class="col-3">
+                                        {% if project.priority == 'High' %}
+                                            <i class="material-icons" style="font-size:36px;color:#cc0000;float:right;">report</i>
+                                        {% elif project.priority == 'Medium' %}
+                                            <i class="material-icons" style="font-size:36px;color:#ff9900;float:right;">sentiment_neutral</i>
+                                        {% else %}
+                                            <i class="material-icons" style="font-size:36px;color:#009963;float:right;">low_priority</i>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for project in projects %}
+                            <td>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="project_sheet">Task 1:</p>
+                                </div>
+                                <div class="col-6">
+                                    <div class="{% if project.task1_status == 'Done' %} green {% elif project.task1_status == 'Doing' %} orange {% else %} red {% endif %}">
+                                        <p class="task_status">{{ project.task1_status }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="task_desc">
+                                        <p class="project_sheet_tasks">{{ project.task1 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <!-- Empty for styling purposes -->
+                                </div>
+                                <div class="col-4">
+                                    
+                                </div>
+                                <div class="col-4">
+                                    
+                                </div>
+                            </div>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for project in projects %}
+                            <td>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="project_sheet">Task 2:</p>
+                                </div>
+                                <div class="col-6">
+                                    <div class="{% if project.task2_status == 'Done' %} green {% elif project.task2_status == 'Doing' %} orange {% else %} red {% endif %}">
+                                        <p class="task_status">{{ project.task2_status }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="task_desc">
+                                        <p class="project_sheet_tasks">{{ project.task2 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for project in projects %}
+                            <td>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="project_sheet">Task 3:</p>
+                                </div>
+                                <div class="col-6">
+                                    <div class="{% if project.task3_status == 'Done' %} green {% elif project.task3_status == 'Doing' %} orange {% else %} red {% endif %}">
+                                        <p class="task_status">{{ project.task3_status }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="task_desc">
+                                        <p class="project_sheet_tasks">{{ project.task3 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for project in projects %}
+                            <td>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="project_sheet">Task 4:</p>
+                                </div>
+                                <div class="col-6">
+                                    <div class="{% if project.task4_status == 'Done' %} green {% elif project.task4_status == 'Doing' %} orange {% else %} red {% endif %}">
+                                        <p class="task_status">{{ project.task4_status }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="task_desc">
+                                        <p class="project_sheet_tasks">{{ project.task4 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for project in projects %}
+                            <td>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="project_sheet">Task 5:</p>
+                                </div>
+                                <div class="col-6">
+                                    <div class="{% if project.task5_status == 'Done' %} green {% elif project.task5_status == 'Doing' %} orange {% else %} red {% endif %}">
+                                        <p class="task_status">{{ project.task5_status }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="task_desc">
+                                        <p class="project_sheet_tasks">{{ project.task5 }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for project in projects %}
+                            <td>
+                            <div class="row">
+                                <div class="col-9">
+                                    <p class="project_sheet">Signed off: </p>
+                                </div>
+                                <div class="col-3">
+                                    {% if project.signed_off == True %}
+                                        <i class="material-icons" style="font-size:36px;color:#009963;float:right;">check_box</i>
+                                    {% else %}
+                                        <i class="material-icons" style="font-size:36px;color:#cc0000;float:right;">close</i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            {% for project in projects %}
+                            <td>
+                            <div class="row">
+                                <div class="col-9">
+                                    <p class="project_sheet">Paid: </p>
+                                </div>
+                                <div class="col-3">
+                                    {% if project.paid == True %}
+                                        <i class="material-icons" style="font-size:36px;color:#009963;float:right;">check_box</i>
+                                    {% else %}
+                                        <i class="material-icons" style="font-size:36px;color:#cc0000;float:right;">close</i>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+{% endblock %}

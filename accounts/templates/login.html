@@ -31,11 +31,11 @@
                     </div>
                 {% endif %}
                 <br>
-                <form method="POST">
-                    <legend>Login</legend>
+                <form method="POST" class="login">
+                    <legend><center>Login</center></legend>
                     {% csrf_token %}
                     {{ login_form.as_p }}
-                    <button type="submit">Login</button>
+                    <button type="submit"><center>Login</center></button>
                 </form>
                 <br>
             </div>

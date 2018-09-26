@@ -20,15 +20,13 @@ from django.contrib import admin
 from django.views.static import serve
 from django.views.generic import RedirectView
 from .settings import MEDIA_ROOT
-from accounts.views import index, logout, login, profile, edit_profile
+from accounts.views import index
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name="index"),
-    url(r'^logout/$', logout, name="logout"),
-    url(r'^login/$', login, name="login"),
-    url(r'^profile/$', profile, name="profile"),
-    url(r'^accounts/edit_profile/$', edit_profile, name="edit_profile"),
-    url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
+    url(r'^accounts/', include('accounts.urls')),
     url(r'^blog/', include('blog.urls')),
+    url(r'^dashboard/', include('dashboard.urls')),
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

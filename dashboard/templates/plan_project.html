@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block page_title %}Plan New Project{% endblock %}
+{% load bootstrap_tags %}
+{% block content %}
+<div class="row" id="header">
+    <div class="col-12">
+        <br>
+        <h1><center>Plan a new project</center></h1>
+        <br>
+        <div class="container">
+            <p class="header-desc">Just agreed on a new project with a client? Enter the necessary project information
+            into the form below, including a description, fee and any relevant dates, and upon submission, the project
+            will be accessible via both the client and your dashboard. Don't worry, they won't be able to see if their 
+            project is of low priority!</p>
+            <p class="header-desc">Most fields will be editable throughout the project via the dashboard. You can break 
+            the project up into as many as five task fields, to keep your client well informed as to how the project is 
+            progressing.</p>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 col-sm-0">
+            <!-- Empty for styling purposes -->
+        </div>
+        <div class="col-md-8 sol-sm-12">
+            <form method="POST" class="project" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form | as_bootstrap }}
+                <center><button class="btn btn-primary float-center" type="submit" id="launch">Launch Project</button></center>
+            </form>
+        </div>
+        <div class="col-md-2 col-sm-0">
+            <!-- Empty for styling purposes -->
+        </div>
+    </div>
+</div>
+{% endblock %}

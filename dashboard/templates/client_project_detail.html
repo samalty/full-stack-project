@@ -1,0 +1,313 @@
+{% extends 'base.html' %}
+{% block page_title %}{{ project.project_title }}{% endblock %}
+{% block content %}
+    <div class="row" id="header">
+        <div class="col-12">
+            <br>
+            <h1><center>{{ project.project_title }}</center></h1>
+            <br>
+            <div class="container">
+                <p class="header-desc">Here you have a complete view of your project. We will
+                continue to update this ticket on a daily basis, to keep you informed on how 
+                work is progressing.</p>
+                <p class="header-desc">Before we begin, we ask that you confirm your approval of 
+                the project by clicking the green button within the ticket. If you wish to make 
+                any amendments to the project scope and the finer details, you are able to do so 
+                via the 'edit' button. Beware though, once you have approved the project, work 
+                will begin and you will be unable to make any changes to the ticket yourself.</p>
+                <p class="header-desc">Once the project has been completed and signed off, the 
+                bottom of the ticket will display a link via which you can make a safe and secure 
+                payment.</p>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <table class="dashboard-table">
+                    <tr>
+                        {% if user == project.client %}
+                        <th class="{% if project.signed_off == True %} status_green {% elif project.task1_status != 'To Do' %} status_orange {% else %} status_red {% endif %}">
+                            <p class="project_status">{{ project.project_title }}</p>
+                        </th>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if user == project.client %}
+                        <td class="{% if project.signed_off == True %} status_green {% elif project.task1_status != 'To Do' %} status_orange {% else %} status_red {% endif %}">
+                            <p class="project_status">Project status: {{ project.project_status }}</p>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if user == project.client %}
+                        <td class="edit-container">
+                            <a class="btn btn-primary" href="{% url 'project_detail' pk=project.pk %}" role="button" id="edit">Edit <i class="material-icons" style="font-size:20px;">edit</i></a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if user == project.client %}
+                        <td>
+                            <div id="accordion">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                                            <div class="row">
+                                                <div class="col-10">
+                                                    <p class="project_sheet">Project Summary</p>
+                                                </div>
+                                                <div class="col-2">
+                                                    <i class="material-icons" style="font-size:24rpx;color:black;float:right;">expand_more</i>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div id="collapseOne" class="collapse hide" data-parent="#accordion">
+                                        <div class="card-body">
+                                            {{ project.description }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <!--
+                    <tr>
+                        {% for project in projects %}
+                        {% if user == project.client %}
+                        <td><p class="project_sheet">Client: {{ project.client }}</p></td>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    -->
+                    <tr>
+                        {% if user == project.client %}
+                        <td>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="project_sheet">Fee: </p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="project_sheet_tasks" style="float:right">£{{ project.fee }}</p>
+                                </div>
+                            </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if user == project.client %}
+                        <td>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="project_sheet">Deadline:</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="project_sheet_tasks" style="float:right">{{ project.deadline }}</p>
+                                </div>
+                            </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if user == project.client %}
+                        <td>
+                        <div class="row">
+                            <div class="col-5">
+                                <p class="project_sheet">Approved: </p>
+                            </div>
+                            <div class="col-5">
+                                {% if project.approved == True %}
+                                    <!-- Blank -->
+                                {% else %}
+                                    <a class="btn btn-primary float-right" href="{% url 'approve_project' project.pk %}" role="button" id="approve">Approve</a>
+                                {% endif %}
+                            </div>
+                            <div class="col-2">
+                                {% if project.approved == True %}
+                                    <i class="material-icons" style="font-size:36px;color:#009963;float:right;">check_box</i>
+                                {% else %}
+                                    <i class="material-icons" style="font-size:36px;color:#cc0000;float:right;">close</i>
+                                {% endif %}
+                            </div>
+                        </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if user == project.client %}
+                        <td>
+                        <div class="row">
+                            <div class="col-5">
+                                <p class="project_sheet">Signed off: </p>
+                            </div>
+                            <div class="col-5">
+                                {% if project.approved == False %}
+                                    <a class="btn btn-primary" href="#" role="button" id="approve" disabled>Sign Off</a>
+                                {% elif project.signed_off == True %}
+                                    <!-- Blank -->
+                                {% else %}
+                                    <a class="btn btn-primary" href="{% url 'sign_off' project.pk %}" role="button" id="approve">Sign Off</a>
+                                {% endif %}
+                            </div>
+                            <div class="col-2">
+                                {% if project.signed_off == True %}
+                                    <i class="material-icons" style="font-size:36px;color:#009963;float:right;">check_box</i>
+                                {% else %}
+                                    <i class="material-icons" style="font-size:36px;color:#cc0000;float:right;">close</i>
+                                {% endif %}
+                            </div>
+                        </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if user == project.client %}
+                        <td>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="project_sheet">Task 1:</p>
+                            </div>
+                            <div class="col-6">
+                                <div class="{% if project.task1_status == 'Done' %} green {% elif project.task1_status == 'Doing' %} orange {% else %} red {% endif %}">
+                                    <p class="task_status">{{ project.task1_status }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="task_desc">
+                                    <p class="project_sheet_tasks">{{ project.task1 }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if user == project.client %}
+                        <td>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="project_sheet">Task 2:</p>
+                            </div>
+                            <div class="col-6">
+                                <div class="{% if project.task2_status == 'Done' %} green {% elif project.task2_status == 'Doing' %} orange {% else %} red {% endif %}">
+                                    <p class="task_status">{{ project.task2_status }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="task_desc">
+                                    <p class="project_sheet_tasks">{{ project.task2 }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if user == project.client %}
+                        <td>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="project_sheet">Task 3:</p>
+                            </div>
+                            <div class="col-6">
+                                <div class="{% if project.task3_status == 'Done' %} green {% elif project.task3_status == 'Doing' %} orange {% else %} red {% endif %}">
+                                    <p class="task_status">{{ project.task3_status }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="task_desc">
+                                    <p class="project_sheet_tasks">{{ project.task3 }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if user == project.client %}
+                        <td>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="project_sheet">Task 4:</p>
+                            </div>
+                            <div class="col-6">
+                                <div class="{% if project.task4_status == 'Done' %} green {% elif project.task4_status == 'Doing' %} orange {% else %} red {% endif %}">
+                                    <p class="task_status">{{ project.task4_status }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="task_desc">
+                                    <p class="project_sheet_tasks">{{ project.task4 }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if user == project.client %}
+                        <td>
+                        <div class="row">
+                            <div class="col-6">
+                                <p class="project_sheet">Task 5:</p>
+                            </div>
+                            <div class="col-6">
+                                <div class="{% if project.task5_status == 'Done' %} green {% elif project.task5_status == 'Doing' %} orange {% else %} red {% endif %}">
+                                    <p class="task_status">{{ project.task5_status }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="task_desc">
+                                    <p class="project_sheet_tasks">{{ project.task5 }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    <tr>
+                        {% if user == project.client %}
+                        <td>
+                        <div class="row">
+                            {% if project.paid == False and project.signed_off == True %}
+                            <div class="col-12">
+                                <a class="btn btn-primary" href="#" role="button" id="pay">Make Payment <i class="material-icons" style="font-size:24px">shopping_cart</i></a>
+                            </div>
+                            {% elif project.paid == False %}
+                            <div class="col-9">
+                                <p class="project_sheet">Paid: </p>
+                            </div>
+                            <div class="col-3">
+                                <i class="material-icons" style="font-size:36px;color:#cc0000;float:right;">close</i>
+                            </div>
+                            {% else %}
+                            <div class="col-9">
+                                <p class="project_sheet">Paid: </p>
+                            </div>
+                            <div class="col-3">
+                                <i class="material-icons" style="font-size:36px;color:#009963;float:right;">check_box</i>
+                            </div>
+                            {% endif %}
+                        </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br>
+    </div>
+{% endblock %}

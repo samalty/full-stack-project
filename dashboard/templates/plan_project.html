@@ -21,17 +21,17 @@
 <br>
 <div class="container">
     <div class="row">
-        <div class="col-md-2 col-sm-0">
+        <div class="col-md-2 col-xs-0">
             <!-- Empty for styling purposes -->
         </div>
-        <div class="col-md-8 sol-sm-12">
+        <div class="col-md-8 sol-xs-12">
             <form method="POST" class="project" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form | as_bootstrap }}
                 <center><button class="btn btn-primary float-center" type="submit" id="launch">Launch Project</button></center>
             </form>
         </div>
-        <div class="col-md-2 col-sm-0">
+        <div class="col-md-2 col-xs-0">
             <!-- Empty for styling purposes -->
         </div>
     </div>

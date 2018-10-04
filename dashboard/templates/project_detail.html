@@ -21,7 +21,7 @@
             <div class="col-12">
                 <table class="project-detail">
                     <tr>
-                        <th class="{% if project.signed_off == True %} status_green {% elif project.task1_status != 'To Do' %} status_orange {% else %} status_red {% endif %}">
+                        <th class="project-detail {% if project.signed_off == True %} status_green {% elif project.task1_status != 'To Do' %} status_orange {% else %} status_red {% endif %}">
                             <p class="project_status">{{ project.project_title }}</p>
                         </th>
                     </tr>
@@ -30,18 +30,19 @@
                             <p class="project_status">Project status: {{ project.project_status }}</p>
                         </td>
                     </tr>
+                    {% if project.approved == False %}
                     <tr>
                         <td>
                         <div class="row">
-                            <div class="col-6">
-                                <center><a class="btn btn-danger" href="{% url 'delete_project' project.pk %}" role="button" id="delete">Delete <i class="material-icons" style="font-size:20px;">delete</i></a></center>
-                            </div>
-                            <div class="col-6">
-                                <center><a class="btn btn-primary" href="#" role="button" id="edit">Update <i class="material-icons" style="font-size:20px;">edit</i></a></center>
+                            <div class="col-12">
+                                <center><a class="btn btn-primary" href="{% url 'edit' project.pk %}" role="button" id="edit">Edit <i class="material-icons" style="font-size:20px;">edit</i></a></center>
                             </div>
                         </div>
                         </td>
                     </tr>
+                    {% else %}
+                    <!-- Blank -->
+                    {% endif %}
                     <tr>
                         <td>
                             <div id="accordion">
@@ -67,6 +68,7 @@
                             </div>
                         </td>
                     </tr>
+                    {% if user.is_superuser %}
                     <tr>
                         <td>
                             <div class="row">
@@ -79,11 +81,12 @@
                             </div>
                         </td>
                     </tr>
+                    {% endif %}
                     <tr>
                         <td>
                             <div class="row">
                                 <div class="col-6">
-                                    <p class="project_sheet">Fee: </p>
+                                    <p class="project_sheet">Fee (exc VAT): </p>
                                 </div>
                                 <div class="col-6">
                                     <p class="project_sheet_tasks" style="float:right">£{{ project.fee }}</p>
@@ -94,10 +97,21 @@
                     <tr>
                         <td>
                         <div class="row">
-                            <div class="col-9">
-                                <p class="project_sheet">Project approved: </p>
+                            <div class="col-5">
+                                <p class="project_sheet">Approved: </p>
                             </div>
-                            <div class="col-3">
+                            <div class="col-5">
+                                {% if user == project.client %}
+                                    {% if project.approved == True %}
+                                        <!-- Blank -->
+                                    {% else %}
+                                        <a class="btn btn-primary float-right" href="{% url 'approve_project' project.pk %}" role="button" id="approve">Approve</a>
+                                    {% endif %}
+                                {% else %}
+                                <!-- Blank -->
+                                {% endif %}
+                            </div>
+                            <div class="col-2">
                                 {% if project.approved == True %}
                                     <i class="material-icons" style="font-size:36px;color:#009963;float:right;">check_box</i>
                                 {% else %}
@@ -119,6 +133,7 @@
                             </div>
                         </td>
                     </tr>
+                    {% if user.is_superuser %}
                     <tr>
                         <td>
                             <div class="row">
@@ -137,6 +152,7 @@
                             </div>
                         </td>
                     </tr>
+                    {% if project.approved == True %}
                     <tr>
                         <td>
                             <div class="row">
@@ -145,11 +161,8 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-1 col-sm-0">
-                                    <!-- Empty for styling purposes -->
-                                </div>
-                                <div class="col-md-10 col-sm-12">
-                                    <form class="status-update" method="POST">
+                                <div class="col-12">
+                                    <form class="status-update" action="{% url 'update_status' project.pk %}" method="POST">
                                         {% csrf_token %}
                                         Task 1: {{ form.task1_status }} 
                                         Task 2: {{ form.task2_status }}
@@ -161,12 +174,11 @@
                                         <button class="btn btn-primary float-center" type="submit" id="update">Update</button>
                                     </form>
                                 </div>
-                                <div class="col-md-1 col-sm-0">
-                                    <!-- Empty for styling purposes -->
-                                </div>
                             </div>
                         </td>
                     </tr>
+                    {% endif %}
+                    {% endif %}
                     <tr>
                         <td>
                         <div class="row">
@@ -180,7 +192,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-12">
                                 <div class="task_desc">
                                     <p class="project_sheet_tasks">{{ project.task1 }}</p>
                                 </div>
@@ -188,6 +200,7 @@
                         </div>
                         </td>
                     </tr>
+                    {% if project.task2_status == 'Done' or project.task2_status == 'Doing' or project.task2_status == 'To Do' %}
                     <tr>
                         <td>
                         <div class="row">
@@ -209,6 +222,10 @@
                         </div>
                         </td>
                     </tr>
+                    {% else %}
+                    <!-- Empty -->
+                    {% endif %}
+                    {% if project.task3_status == 'Done' or project.task3_status == 'Doing' or project.task3_status == 'To Do' %}
                     <tr>
                         <td>
                         <div class="row">
@@ -230,6 +247,10 @@
                         </div>
                         </td>
                     </tr>
+                    {% else %}
+                    <!-- Empty -->
+                    {% endif %}
+                    {% if project.task4_status == 'Done' or project.task4_status == 'Doing' or project.task4_status == 'To Do' %}
                     <tr>
                         <td>
                         <div class="row">
@@ -251,6 +272,10 @@
                         </div>
                         </td>
                     </tr>
+                    {% else %}
+                    <!-- Empty -->
+                    {% endif %}
+                    {% if project.task5_status == 'Done' or project.task5_status == 'Doing' or project.task5_status == 'To Do' %}
                     <tr>
                         <td>
                         <div class="row">
@@ -269,26 +294,32 @@
                                     <p class="project_sheet_tasks">{{ project.task5 }}</p>
                                 </div>
                             </div>
-                            <!--
-                            <div class="col-0">
-                                <form class="status-update" method="POST">
-                                    {% csrf_token %}
-                                    {{ form.task5_status }}
-                                    <br>
-                                    <button class="btn btn-primary float-center" type="submit" id="update">Update</button>
-                                </form>
-                            </div>
-                            -->
                         </div>
                         </td>
                     </tr>
+                    {% else %}
+                    <!-- Empty -->
+                    {% endif %}
                     <tr>
                         <td>
                         <div class="row">
-                            <div class="col-9">
+                            <div class="col-5">
                                 <p class="project_sheet">Signed off: </p>
                             </div>
-                            <div class="col-3">
+                            <div class="col-5">
+                                {% if user == project.client %}
+                                    {% if project.approved == False %}
+                                        <a class="btn btn-primary" href="#" role="button" id="approve" disabled>Sign Off</a>
+                                    {% elif project.signed_off == True %}
+                                        <!-- Blank -->
+                                    {% else %}
+                                        <a class="btn btn-primary" href="{% url 'sign_off' project.pk %}" role="button" id="approve">Sign Off</a>
+                                    {% endif %}
+                                {% else %}
+                                <!-- Blank -->
+                                {% endif %}
+                            </div>
+                            <div class="col-2">
                                 {% if project.signed_off == True %}
                                     <i class="material-icons" style="font-size:36px;color:#009963;float:right;">check_box</i>
                                 {% else %}
@@ -298,6 +329,7 @@
                         </div>
                         </td>
                     </tr>
+                    {% if user.is_superuser %}
                     <tr>
                         <td>
                         <div class="row">
@@ -314,6 +346,44 @@
                         </div>
                         </td>
                     </tr>
+                    {% elif user == project.client %}
+                    <tr>
+                        <td>
+                        <div class="row">
+                            {% if project.paid == False and project.signed_off == True %}
+                            <div class="col-12">
+                                <a class="btn" href="{% url 'confirm' project.pk %}" role="button" id="pay">Make Payment <i class="material-icons" style="font-size:24px">shopping_cart</i></a>
+                            </div>
+                            {% elif project.paid == False %}
+                            <div class="col-9">
+                                <p class="project_sheet">Paid: </p>
+                            </div>
+                            <div class="col-3">
+                                <i class="material-icons" style="font-size:36px;color:#cc0000;float:right;">close</i>
+                            </div>
+                            {% else %}
+                            <div class="col-9">
+                                <p class="project_sheet">Paid: </p>
+                            </div>
+                            <div class="col-3">
+                                <i class="material-icons" style="font-size:36px;color:#009963;float:right;">check_box</i>
+                            </div>
+                            {% endif %}
+                        </div>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                    <tr>
+                        <td>
+                        <div class="row">
+                            <div class="col-12">
+                                <center><a class="btn btn-danger" href="{% url 'delete_project' project.pk %}" role="button" id="delete">Delete <i class="material-icons" style="font-size:20px;">delete</i></a></center>
+                            </div>
+                        </div>
+                        </td>
+                    </tr>
+                    {% endif %}
                 </table>
             </div>
         </div>

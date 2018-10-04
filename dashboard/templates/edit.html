@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
-{% block page_title %}Create New Post{% endblock %}
+{% block page_title %}Edit {{ project.project_title }}{% endblock %}
 {% load bootstrap_tags %}
 {% block content %}
 <div class="row" id="header">
     <div class="col-12">
         <br>
-        <h1><center>Let us know how we're doing</center></h1>
-        <p class="header-desc">Add a post below...</p>
+        <h1><center>Edit {{ project.project_title }}</center></h1>
+        <br>
+        <div class="container">
+            <p class="header-desc">Lorem ipsum</p>
+        </div>
     </div>
 </div>
 <br>
@@ -16,11 +19,10 @@
             <!-- Empty for styling purposes -->
         </div>
         <div class="col-md-8 sol-xs-12">
-            <form method="POST" enctype="multipart/form-data" class="new-blog">
+            <form method="POST" class="project" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form | as_bootstrap }}
-                <button class="btn btn-primary float-center" type="submit" id="save">Publish Post</button>
-                <a class="btn btn-primary float-right" href="{% url 'get_posts' %}" role="button" id="save">Back to Blog</a>
+                <center><button class="btn btn-primary float-center" type="submit" id="launch">Submit Changes</button></center>
             </form>
         </div>
         <div class="col-md-2 col-xs-0">

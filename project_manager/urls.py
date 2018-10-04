@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^accounts/', include('accounts.urls')),
     url(r'^blog/', include('blog.urls')),
     url(r'^dashboard/', include('dashboard.urls')),
+    url(r'^payment/', include('payment.urls')),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block page_title %}Login{% endblock %}
 {% block page_heading %}Login{% endblock %}
+{% load bootstrap_tags %}
 {% block content %}
     <div class="row" id="header">
         <div class="col-12">
@@ -16,10 +17,10 @@
     <br>
     <div class="container">
         <div class="row">
-            <div class="col-md-3 col-sm-0">
+            <div class="col-md-3 col-xs-0">
                 <!-- Empty for styling purposes -->
             </div>
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-6 col-xs-12">
             <br>
                 {% if messages %}
                     <div class="popup-container">
@@ -34,12 +35,12 @@
                 <form method="POST" class="login">
                     <legend><center>Login</center></legend>
                     {% csrf_token %}
-                    {{ login_form.as_p }}
-                    <button type="submit"><center>Login</center></button>
+                    {{ login_form | as_bootstrap }}
+                    <center><button class="btn" type="submit" id="account">Login</button></center>
                 </form>
                 <br>
             </div>
-            <div class="col-md-3 col-sm-0">
+            <div class="col-md-3 col-xs-0">
                 <!-- Empty for styling purposes -->
             </div>
         </div>

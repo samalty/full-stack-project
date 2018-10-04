@@ -39,7 +39,14 @@ way to manage their workload and engage with their clients, and the clients them
 
 ## Testing
 
-...
+This project was developed using a mobile-first approach. A Google Chrome screen resolution tester was consistently used throughout 
+development to ensure that pages and functionalities were easy to navigate and use via various platforms and screen sizes.
+
+The app was extensively tested across a range of browsers across both Windows and Mac operating systems, including Chrome, IE, Firefox, 
+Microsoft Edge, and Opera, using CrossBrowserTesting.com's free service. Though they were fully functional across all other browser 
+types, the horizontal scrolling buttons on the main dashboard (which incorporate jquery) were unresponsive when accessed via Firefox. 
+To overcome this, a horizontal scrolling bar was also inserted above the scrollable content. Other than this, there were no cross-browser 
+issues with functionality or design.
 
 ## Deployment
 

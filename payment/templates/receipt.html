@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block page_title %}Thankyou{% endblock %}
+{% block content %}
+    <div class="container" id="checkout-container">
+        <div class="row">
+            <div class="col-12">
+                <center><h2 class="checkout-head">Thankyou for your custom</h2></center>
+                <center><i class="material-icons" style="font-size:48px;color:#009963;">check_box</i></center>
+                <br>
+                <center><p class="checkout">Your payment for '{{ project.project_title }}' (£{{ total }}) has 
+                been successfully processed.</p></center>
+                <center><p class="checkout">Thanks for choosing Brand Name. We hope to be working with 
+                you again very soon!</p></center>
+            </div>
+        </div>
+        <br>
+    </div>
+{% endblock %}

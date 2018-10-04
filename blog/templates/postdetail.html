@@ -14,13 +14,13 @@
 <br>
 <div class="container" id="blank-container">
     <div class="row">
-        <div class="col-md-3 col-sm-12 text-center">
+        <div class="col-md-3 col-xs-12 text-center">
             <a class="story-img" href="#">
                 <img src="{{ post.user.userprofile.image.url }}" class="img-circle">
             </a>
             <p class="blog-text"><span class="boldtext">Author: </span>{{ post.user }}</p>
         </div>
-        <div class="col-md-9 col-sm-12">
+        <div class="col-md-9 col-xs-12">
             
             <h3 class="blog-text">{{ post.title }}</h3>
             <p class="blog-text">{{ post.content }}</p>
@@ -29,17 +29,22 @@
             
             <p class="blog-text"><span class="boldtext">Likes: </span>{{ post.likes.count }}</p>
             
-            {% if 'liked' == False %}
-                <a class="btn btn-primary" href="{{ post.get_like_url }}" role="button" id="blog-red"><i class="material-icons" style="font-size:18px">thumb_up</i> Like</a>
+            
+            <a class="btn btn-primary" href="{{ post.get_like_url }}" role="button" id="blog-blue">{{ bool_var|yesno:"Like,Unlike" }}</a>
+            
+            
+            
+            {% if liked == True %}
+                <a class="btn btn-primary" href="{{ post.get_like_url }}" role="button" id="blog-blue"><i class="material-icons" style="font-size:12px">thumb_up</i> Like</a>
             {% else %}
-                <a class="btn btn-danger" href="{{ post.get_like_url }}" role="button" id="blog-red"><i class="material-icons" style="font-size:18px">thumb_down</i> Unlike</a>
+                <a class="btn btn-danger" href="{{ post.get_like_url }}" role="button" id="blog-red"><i class="material-icons" style="font-size:12px">thumb_down</i> Unlike</a>
             {% endif %}
             
-            <a class="btn btn-primary" href="{% url 'get_posts' %}" role="button" id="blog-red"><i class="material-icons" style="font-size:18px">arrow_back</i> Blog</a>
+            <a class="btn btn-primary" href="{% url 'get_posts' %}" role="button" id="blog-blue"><i class="material-icons" style="font-size:12px">arrow_back</i> Blog</a>
             
             {% if post.user == user %}
-                <a class="btn btn-primary" href="{% url 'edit_post' post.slug %}" role="button" id="blog-blue">Edit Post <i class="material-icons" style="font-size:18px">edit</i></a>
-                <a class="btn btn-danger" href="{% url 'delete_post' post.slug %}" role="button" id="blog-red">Delete Post <i class="material-icons" style="font-size:18px">delete</i></a>
+                <a class="btn btn-primary" href="{% url 'edit_post' post.slug %}" role="button" id="blog-blue">Edit <i class="material-icons" style="font-size:12px">edit</i></a>
+                <a class="btn btn-danger" href="{% url 'delete_post' post.slug %}" role="button" id="blog-red">Delete <i class="material-icons" style="font-size:12px">delete</i></a>
             {% endif %}
             
         </div>

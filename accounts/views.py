@@ -23,7 +23,9 @@ def index(request):
             messages.error(request, "Sorry. We are unable to reigster your account at this time.")
     else:
         registration_form = UserRegistrationForm()
-    return render(request, 'index.html', {"registration_form": registration_form})
+    return render(request, 'index.html', {'registration_form': registration_form})
+
+
 
 @login_required
 def logout(request):
@@ -49,13 +51,14 @@ def login(request):
                 combination that you entered wasn't recognised.")
     else:
         login_form = UserLoginForm()
-    return render(request, 'login.html', {"login_form": login_form})
+    return render(request, 'login.html', {'login_form': login_form})
 
 @login_required
 def profile(request):
     """ Returns the main navigation page """
     user = User.objects.get(email=request.user.email)
-    return render(request, 'profile.html', {'user': user})
+    username = User.objects.get(username=request.user.username)
+    return render(request, 'profile.html', {'user': user, 'username': username})
 
 @login_required
 def edit_profile(request, pk=None):

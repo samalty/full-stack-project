@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block page_title %}Edit Your Profile{% endblock %}
 {% block page_heading %}Edit Your Profile{% endblock %}
+{% load bootstrap_tags %}
 {% block content %}
 <div class="row" id="header">
     <div class="col-12">
@@ -12,18 +13,18 @@
 <br>
 <div class="container">
     <div class="row">
-        <div class="col-md-3 col-sm-0">
+        <div class="col-md-2 col-xs-0">
             <!-- Empty for styling purposes -->
         </div>
-        <div class="col-md-6 sol-sm-12">
-            <form method="POST" enctype="multipart/form-data" class="edit-profile">
+        <div class="col-md-8 col-xs-12">
+            <form method="POST" enctype="multipart/form-data" class="project">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button class="btn btn-primary" type="submit" id="save">Submit changes</button>
+                {{ form | as_bootstrap }}
+                <center><button class="btn" type="submit" id="launch">Submit changes</button></center>
             </form>
             <br>
         </div>
-        <div class="col-md-3 col-sm-0">
+        <div class-"col-md-2 col-xs-0">
             <!-- Empty for styling purposes -->
         </div>
     </div>

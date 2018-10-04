@@ -1,23 +1,34 @@
-/* ---------- GENERAL ---------- */
+/* >>>>>>>>>>>>>>>>>>>> GENERAL <<<<<<<<<<<<<<<<<<<< */
 
 html, body{
-	background-image: url("../img/office.jpg");
+    background: url("../img/office.jpg"); 
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	display: block;
-	height: 95%;
+	width: 100%;
+	height: 100%;
 	padding: 0px;
+	margin: 0px;
+	top: 0;
+	bottom: 0;
 }
 
-.wrapper{
-    overflow-x: scroll;
-}
+/*.background{
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.8);
+    z-index: 0;
+    position: relative;
+    top: 0;
+    bottom: 0;
+}*/
 
-/* ---------- TABLES ---------- */
+/* >>>>>>>>>>>>>>>>>>>> TABLES <<<<<<<<<<<<<<<<<<<< */
 
 table, th, td{
     border-collapse: separate;
+    vertical-align: text-top;
 }
 
 table{
@@ -25,6 +36,31 @@ table{
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
+}
+
+.dashboard-table{
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.wrapper1, .wrapper2{ 
+    width: 100%; 
+    overflow-x: auto; 
+    overflow-y: hidden;
+}
+
+.wrapper1{ 
+    height: 20px;
+    margin-bottom: 20px;
+}
+
+.top-scroll{ 
+    height: 20px; 
+}
+
+.bottom-scroll{
+    overflow: none;
+    margin: auto;
 }
 
 th, td{
@@ -41,15 +77,20 @@ th{
 
 .dashboard-table th, td{
     min-width: 310px;
-    max-width: 310px;
-}
-
-.project-detail th, td{
-    min-width: 310px;
     max-width: 510px;
 }
 
-/* ---------- TEXT ---------- */
+.project-detail{
+    min-width: 310px;
+    max-width: 510px;
+    width: 100%;
+}
+
+.invisible{
+    z-index: 0;
+}
+
+/* >>>>>>>>>>>>>>>>>>>> TEXT <<<<<<<<<<<<<<<<<<<< */
 
 h1,
 h2,
@@ -58,6 +99,8 @@ h4{
     align-self: center;
     color: #d9d9d9;
     font-family: 'Do Hyeon', sans-serif;
+    position: relative;
+    z-index: 1;
 }
 
 p{
@@ -66,9 +109,33 @@ p{
     font-size: 18px;
 }
 
+.checkout-head{
+    color: #000000;
+    font-family: 'Do Hyeon', sans-serif;
+    margin-bottom: 30px;
+}
+
+.checkout{
+    color: #000000;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 18px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.invoice{
+    color: #000000;
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 18px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
 .blog-text{
     color: #262626;
     font-family: 'Bree Serif', serif;
+    position: relative;
+    z-index: 1;
 }
 
 .popup-message{
@@ -76,6 +143,8 @@ p{
     font-family: 'Do Hyeon', sans-serif;
     font-size: 20px;
     text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
 .project_sheet{
@@ -113,7 +182,13 @@ p{
     margin-bottom: 0px;
 }
 
-/* ---------- NAVBAR ---------- */
+.order-by{
+    margin-top: 5px;
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+
+/* >>>>>>>>>>>>>>>>>>>> NAVBAR <<<<<<<<<<<<<<<<<<<< */
 
 .navbar{
     background-color: #3d5c5c;
@@ -122,6 +197,12 @@ p{
     position: fixed;
     z-index: 1000;
     top: 0;
+}
+
+.navbar-collapse{
+    background-color: #3d5c5c;
+    padding-left: 30px;
+    border-bottom-color: #527a7a;
 }
 
 .navbar-brand{
@@ -138,49 +219,61 @@ p{
     color: #d9d9d9;
     font-family: 'Do Hyeon', sans-serif;
     font-size: 22px;
-    margin-right: 35px;
+    margin-right: 5px;
 }
 
 .nav-item:hover{
     color: #f2f2f2;
 }
 
-/* ---------- HEADER ---------- */
+.navbar-toggler-icon{
+    color: #ffffff;
+}
+
+/* >>>>>>>>>>>>>>>>>>>> HEADER <<<<<<<<<<<<<<<<<<<< */
 
 #header{
     background-color: #293d3d;
     border-bottom: 5px solid #3d5c5c;
     -webkit-filter: opacity(0.9);
+    position: relative;
+    z-index: 1;
 }
 
 .header-desc{
     text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
-/* ---------- IMAGES ---------- */
+/* >>>>>>>>>>>>>>>>>>>> IMAGES <<<<<<<<<<<<<<<<<<<< */
 
 img{
     border-radius: 50%;
     max-height: 150px;
     max-width: 150px;
+    position: relative;
+    z-index: 1;
 }
 
 .img-circle{
     margin: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .profile{
     display: block;
     margin-left: auto;
     margin-right: auto;
-    -webkit-filter: opacity(1.0);
+    position: relative;
+    z-index: 1;
 }
 
-/* ---------- CONTAINERS ---------- */
+/* >>>>>>>>>>>>>>>>>>>> CONTAINERS <<<<<<<<<<<<<<<<<<<< */
 
 .container{
     min-height: 80%;
-    position: relative;
 }
 
 #blank-container{
@@ -189,12 +282,22 @@ img{
     padding-top: 15px;
 }
 
+#checkout-container{
+    background-color: #f2f2f2;
+    padding: 50px;
+    height: 100%;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
 #bio-container{
     background-color: #293d3d;
     border: 5px solid #3d5c5c;
     border-radius: 5%;
     padding: 15px;
     -webkit-filter: opacity(0.9);
+    position: relative;
+    z-index: 100;
 }
 
 .popup-container{
@@ -261,7 +364,17 @@ img{
     text-align: center;
 }
 
-/* ---------- FORMS ---------- */
+#shade{
+    background-color: #d9d9d9;
+}
+
+.invoice-container{
+    width: 270px;
+    margin: auto;
+    padding: 3px;
+}
+
+/* >>>>>>>>>>>>>>>>>>>> FORMS <<<<<<<<<<<<<<<<<<<< */
     
 form{
     background-color: #293d3d;
@@ -278,20 +391,34 @@ legend{
 }
 
 select{
-    margin-top: 5px;
+    margin-top: 7px;
     min-width: 85px;
+}
+
+.field-wrapper{
+    display: block;
+    width: 100%;
 }
 
 .login{
     text-align: center;
     margin: 0 auto;
     width: 300px;
+    color: #d9d9d9;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 18px;
+    text-align: left;
 }
 
 .register{
     text-align: center;
     margin: 0 auto;
-    width: 400px;
+    min-width: 300px;
+    max-width: 400px;
+    color: #d9d9d9;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 18px;
+    text-align: left;
 }
 
 .new-blog{
@@ -308,32 +435,92 @@ select{
     background-color: #f2f2f2;
     border: 5px solid #a6a6a6;
     border-radius: 1%;
-    padding: 40px 60px;
+    padding: 30px 25px;
     -webkit-filter: opacity(1.0);
     font-family: 'Signika Negative', sans-serif;
     font-size: 18px;
 }
 
-.edit-profile{
+.payment{
+    margin: 0 auto;
+    margin-top: 50px;
     background-color: #f2f2f2;
     border: 5px solid #a6a6a6;
-    padding: 15px;
+    border-radius: 1%;
+    padding: 30px 40px;
+    min-width: 310px;
+    max-width: 710px;
     -webkit-filter: opacity(1.0);
-    font-family: 'Bree Serif', serif;
-    font-size: 22px;
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 14px;
+}
+
+.payment-legend{
+    text-align: center;
+    margin-bottom: 20px;
+    color: #595959;
+}
+
+#confirm{
+    background-color: #f2f2f2;
+    border: 0px solid #f2f2f2;
+    text-align: center;
 }
 
 .status-update{
     background-color: #d9d9d9;
-    border: 0px solid #d9d9d9;
+    border: 0px solid #ffffff;
+    padding-left: 0px;
+    padding-right: 0px;
     text-align: center;
 }
 
-/* ---------- BUTTONS ---------- */
+div.sticky{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 65px;
+    height: 90px;
+    background-color: #527a7a;
+    border-bottom: 5px solid #3d5c5c;
+    border-bottom-right-radius: 30%;
+    width: 104%;
+    text-align: center;
+    z-index: 100;
+}
+
+.option{
+    background-color: #527a7a;
+    border: 5px solid #527a7a;
+    border-radius: 0%;
+    height: 80px;
+    padding: 0px;
+    margin-bottom: 0px;
+    width: 100%;
+    text-align: center;
+    z-index: 100;
+}
+
+/* >>>>>>>>>>>>>>>>>>>> BUTTONS <<<<<<<<<<<<<<<<<<<< */
+
+.arrows{
+    margin-top: 30px;
+    border-radius: 10%;
+    height: 35px;
+    width: 45px;
+    text-align: center;
+}
+
+#arrow{
+    font-size: 22px;
+    color: #3d5c5c;
+    margin: auto;
+}
 
 #save{
     font-family: 'Bree Serif', serif;
     font-size: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 #edit{
@@ -342,6 +529,17 @@ select{
     background-color: #002966;
     border: 2px solid #d9d9d9;
     width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+#account{
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 20px;
+    color: #293d3d;
+    background-color: #d9d9d9;
+    position: relative;
+    z-index: 1;
 }
 
 #update{
@@ -352,17 +550,22 @@ select{
     border: 2px solid #d9d9d9;
     width: 118px;
     height: 30px;
-    margin-left: 18px;
+    margin-left: 21px;
+    position: relative;
+    z-index: 1;
 }
 
 #launch{
     font-family: 'Signika Negative', sans-serif;
     font-size: 18px;
+    color: #ffffff;
     background-color: #2e5cb8;
     width: 160px;
     height: 50px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
+    z-index: 1;
 }
 
 #delete{
@@ -372,6 +575,8 @@ select{
     border: 2px solid #d9d9d9;
     width: 100%;
     height: 45px;
+    position: relative;
+    z-index: 1;
 }
 
 #approve{
@@ -381,43 +586,63 @@ select{
     border: 2px solid #d9d9d9;
     width: 100%;
     height: 38px;
+    position: relative;
+    z-index: 1;
 }
 
 #pay{
     font-family: 'Signika Negative', sans-serif;
     font-size: 24px;
     background-color: #009963;
+    color: #ffffff;
     border: 0px solid #d9d9d9;
+    display: block;
+    margin: auto;
     width: 100%;
     height: 100%;
+}
+
+#submit-payment{
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 24px;
+    background-color: #009963;
+    color: #ffffff;
+    border: 0px solid #d9d9d9;
+    display: block;
+    margin: auto;
+    width: 250px;
 }
 
 #blog-blue{
     font-family: 'Signika Negative', sans-serif;
     font-size: 16px;
     background-color: #2e5cb8;
-    height: 40px;
-    width: 120px;
+    height: 35px;
+    width: 90px;
     margin-bottom: 10px;
     margin-right: 2px;
+    position: relative;
+    z-index: 1;
 }
 
 #blog-red{
     font-family: 'Signika Negative', sans-serif;
     font-size: 16px;
     background-color: #cc0000;
-    height: 40px;
-    width: 120px;
+    height: 35px;
+    width: 90px;
     margin-bottom: 10px;
     margin-right: 2px;
+    position: relative;
+    z-index: 1;
 }
 
-/* Footer */
+/* >>>>>>>>>>>>>>>>>>>> Footer <<<<<<<<<<<<<<<<<<<< */
 
 footer{
     background-color: #527a7a;
     padding: 15px;
-    height: 100px;
+    height: 70px;
     text-align: center;
     border-top: 5px solid #3d5c5c;
 }

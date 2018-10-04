@@ -2,17 +2,6 @@ from django import forms
 from .models import Project
 
 class ProjectForm(forms.ModelForm):
-    
-#    def clean(self):
-#        """ Updates the project status based on the status of other fields """
-#        if self.signed_off == True:
-#            self.project_status == 'Done'
-#        elif self.task1_status != 'To Do':
-#            self.project_status == 'Doing'
-#        else:
-#            self.project_status == 'To Do'
-#        return self.project_status
-    
     class Meta:
         model = Project
         fields = ('project_title',
@@ -42,3 +31,27 @@ class TaskForm(forms.ModelForm):
                   'task3_status',
                   'task4_status',
                   'task5_status',)
+
+class EditForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ('description',
+                  'fee',
+                  'deadline',
+                  'priority',
+                  'task1',
+                  'task2',
+                  'task3',
+                  'task4',
+                  'task5',)
+
+class ClientEditForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ('description',
+                  'deadline',
+                  'task1',
+                  'task2',
+                  'task3',
+                  'task4',
+                  'task5',)

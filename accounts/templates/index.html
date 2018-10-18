@@ -33,7 +33,7 @@
                     </div>
                 {% endif %}
                 <br>
-                <form method="POST" class="register">
+                <form method="POST" class="register" style="margin-bottom:50px">
                     <legend><center>Register</center></legend>
                     {% csrf_token %}
                     {{ registration_form | as_bootstrap }}

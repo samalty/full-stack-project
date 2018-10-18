@@ -33,7 +33,8 @@
                         <p><b>Location: </b>{{ user.userprofile.location }}</p>
                         <p><b>Website: </b><a href="{{ user.userprofile.website }}">{{ user.userprofile.website }}</a></p>
                         <br>
-                        <center><a class="btn" href="{% url 'edit_profile' %}" role="button" id="account">Edit your account</a></center>
+                        <a class="btn" href="{% url 'update_image' user.pk %}" role="button" id="account" style="float:left">Update image</a>
+                        <a class="btn" href="{% url 'edit_profile' user.pk %}" role="button" id="account" style="float:right">Edit account</a>
                     </div>
                 </div>
             </div>

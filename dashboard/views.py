@@ -48,10 +48,12 @@ def project_detail(request, pk):
         raise Http404
     else:
         project = get_object_or_404(Project, pk=pk)
+        projects = Project.objects.filter(pk=pk)
         form = ProjectForm(instance=project)
         context = {
             'form': form,
             'project': project,
+            'projects': projects,
             'task1_status': project.task1_status,
             'task2_status': project.task2_status,
             'task3_status': project.task3_status,

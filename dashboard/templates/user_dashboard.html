@@ -4,15 +4,15 @@
     <div class="row" id="header">
         <div class="col-12">
             <br>
-            <h1><center>{{ user }}'s Dashboard</center></h1>
+            <h1><center><img src="{{ user.userprofile.image.url }}" class="profile" height="35px" width="35px" style="display:inline-block;margin-right:10px">{{ user }}'s Dashboard</center></h1>
             <br>
             <div class="container">
-                <p class="header-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad 
-                minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
-                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit 
-                esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat 
-                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p class="header-desc">This is your dashboard, which provides a visual summary 
+                of progress on all of your open projects. You can rearrange the order in which 
+                projects are displayed, according to deadline, launched date, and project status, 
+                by using the dropdown menu below.</p>
+                <p class="header-desc">For a more detailed view of either project, or to edit or 
+                update certain details, click on the blue button of the corresponding ticket.</p>
             </div>
         </div>
     </div>
@@ -49,7 +49,7 @@
                         <!-- Blank -->
                     </div>
                 </div>
-                <div class="wrapper2">
+                <div class="wrapper2" style="margin-bottom:50px">
                 <div class="bottom-scroll">
                     <table class="dashboard-table">
                         <tr>
@@ -68,17 +68,17 @@
                         </tr>
                         <tr>
                             {% for project in projects %}
-                            <td class="edit-container">
+                            <td class="edit-container gradient">
                                 <a class="btn btn-primary" href="{% url 'project_detail' pk=project.pk %}" role="button" id="edit">Update <i class="material-icons" style="font-size:20px;">edit</i></a>
                             </td>
                             {% endfor %}
                         </tr>
                         <tr>
                             {% for project in projects %}
-                            <td>
+                            <td class="gradient">
                                 <div id="accordion">
                                     <div class="card">
-                                        <div class="card-header">
+                                        <div class="card-header gradient">
                                             <a class="card-link" data-toggle="collapse" href="#collapseOne">
                                                 <div class="row">
                                                     <div class="col-10">
@@ -91,8 +91,8 @@
                                             </a>
                                         </div>
                                         <div id="collapseOne" class="collapse hide" data-parent="#accordion">
-                                            <div class="card-body">
-                                                {{ project.description }}
+                                            <div class="card-body project_desc">
+                                                <p class="project_sheet_tasks">{{ project.description }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@
                         </tr>
                         <tr>
                             {% for project in projects %}
-                            <td>
+                            <td class="gradient">
                                 <div class="row">
                                     <div class="col-6">
                                         <p class="project_sheet">Client: </p>
@@ -116,7 +116,7 @@
                         </tr>
                         <tr>
                             {% for project in projects %}
-                            <td>
+                            <td class="gradient">
                                 <div class="row">
                                     <div class="col-6">
                                         <p class="project_sheet">Fee (exc VAT): </p>
@@ -130,7 +130,7 @@
                         </tr>
                         <tr>
                             {% for project in projects %}
-                            <td>
+                            <td class="gradient">
                                 <div class="row">
                                     <div class="col-6">
                                         <p class="project_sheet">Deadline:</p>
@@ -144,7 +144,7 @@
                         </tr>
                         <tr>
                             {% for project in projects %}
-                            <td>
+                            <td class="gradient">
                                 <div class="row">
                                     <div class="col-9">
                                         <p class="project_sheet">Priority: </p>
@@ -164,7 +164,7 @@
                         </tr>
                         <tr>
                             {% for project in projects %}
-                            <td>
+                            <td class="gradient">
                             <div class="row">
                                 <div class="col-9">
                                     <p class="project_sheet">Project approved: </p>
@@ -182,7 +182,7 @@
                         </tr>
                         <tr>
                             {% for project in projects %}
-                            <td>
+                            <td class="gradient">
                             <div class="row">
                                 <div class="col-9">
                                     <p class="project_sheet">Signed off: </p>
@@ -200,7 +200,7 @@
                         </tr>
                         <tr>
                             {% for project in projects %}
-                            <td>
+                            <td class="gradient">
                             <div class="row">
                                 <div class="col-9">
                                     <p class="project_sheet">Paid: </p>
@@ -218,7 +218,7 @@
                         </tr>
                         <tr>
                             {% for project in projects %}
-                            <td>
+                            <td class="gradient">
                             <div class="row">
                                 <div class="col-6">
                                     <p class="project_sheet">Task 1:</p>
@@ -242,7 +242,7 @@
                         <tr>
                         {% for project in projects %}
                             {% if project.task2_status == 'Done' or project.task2_status == 'Doing' or project.task2_status == 'To Do' %}
-                            <td>
+                            <td class="gradient">
                             <div class="row">
                                 <div class="col-6">
                                     <p class="project_sheet">Task 2:</p>
@@ -269,7 +269,7 @@
                         <tr>
                         {% for project in projects %}
                             {% if project.task3_status == 'Done' or project.task3_status == 'Doing' or project.task3_status == 'To Do' %}
-                            <td>
+                            <td class="gradient">
                             <div class="row">
                                 <div class="col-6">
                                     <p class="project_sheet">Task 3:</p>
@@ -296,7 +296,7 @@
                         <tr>
                         {% for project in projects %}
                             {% if project.task4_status == 'Done' or project.task4_status == 'Doing' or project.task4_status == 'To Do' %}
-                            <td>
+                            <td class="gradient">
                             <div class="row">
                                 <div class="col-6">
                                     <p class="project_sheet">Task 4:</p>
@@ -323,7 +323,7 @@
                         <tr>
                         {% for project in projects %}
                             {% if project.task5_status == 'Done' or project.task5_status == 'Doing' or project.task5_status == 'To Do' %}
-                            <td>
+                            <td class="gradient">
                             <div class="row">
                                 <div class="col-6">
                                     <p class="project_sheet">Task 5:</p>
@@ -356,7 +356,7 @@
                         <!-- Blank -->
                     </div>
                 </div>
-                <div class="wrapper2">
+                <div class="wrapper2" style="margin-bottom:50px">
                 <div class="bottom-scroll">
                     <table class="dashboard-table">
                         <tr>
@@ -380,7 +380,7 @@
                         <tr>
                             {% for project in projects %}
                             {% if user == project.client %}
-                            <td class="edit-container">
+                            <td class="edit-container gradient">
                                 <a class="btn btn-primary" href="{% url 'project_detail' pk=project.pk %}" role="button" id="edit">Detailed View <i class="material-icons" style="font-size:20px;">info_outline</i></a>
                             </td>
                             {% endif %}
@@ -389,7 +389,7 @@
                         <tr>
                             {% for project in projects %}
                             {% if user == project.client %}
-                            <td>
+                            <td class="gradient">
                                 <div class="row">
                                     <div class="col-6">
                                         <p class="project_sheet">Fee (exc VAT): </p>
@@ -405,7 +405,7 @@
                         <tr>
                             {% for project in projects %}
                             {% if user == project.client %}
-                            <td>
+                            <td class="gradient">
                                 <div class="row">
                                     <div class="col-6">
                                         <p class="project_sheet">Deadline:</p>
@@ -421,7 +421,7 @@
                         <tr>
                             {% for project in projects %}
                             {% if user == project.client %}
-                            <td>
+                            <td class="gradient">
                             <div class="row">
                                 <div class="col-9">
                                     <p class="project_sheet">Approved: </p>
@@ -441,7 +441,7 @@
                         <tr>
                             {% for project in projects %}
                             {% if user == project.client %}
-                            <td>
+                            <td class="gradient">
                             <div class="row">
                                 <div class="col-9">
                                     <p class="project_sheet">Signed off: </p>
@@ -461,7 +461,7 @@
                         <tr>
                             {% for project in projects %}
                             {% if user == project.client %}
-                            <td>
+                            <td class="gradient">
                             <div class="row">
                                 <div class="col-9">
                                     <p class="project_sheet">Paid: </p>

@@ -25,6 +25,7 @@ def confirm_payment(request, id):
     cart = request.session.get('cart', {})
     cart[id] = cart.get(id)
     request.session['cart'] = cart
+    print(cart)
     return redirect(checkout)
 
 @login_required()

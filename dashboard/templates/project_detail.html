@@ -8,46 +8,71 @@
             <h1><center>{{ project.project_title }}</center></h1>
             <br>
             <div class="container">
-                <p class="header-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad 
-                minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
-                commodo consequat.</p>
+                {% if user.is_superuser %}
+                    <p class="header-desc">This is your project detail page, which 
+                    you will use to manage the status of this particular project. 
+                    Up until the client approves of the project, you can make amendments 
+                    to the project by pressing the 'edit' button.</p> 
+                    <p class="header-desc">Once the project is approved and underway, 
+                    be sure to keep the client in the loop by updating the status of 
+                    each individual task accordingly, via the dropdown options. This 
+                    page will also let you know when your project has been approved, 
+                    signed off, and paid for by the client.</p>
+                {% else %}
+                    <p class="header-desc">This is your project detail page, which you 
+                    can use to monitor the progress of this particular project. Prior to 
+                    approval, you have freedom to edit certain aspects of the proposed 
+                    project, including the project summary and the breakdown of individual 
+                    tasks. This can be done via the 'edit' button.</p>
+                    <p class="header-desc">Once you are happy, click 'approve' and we will 
+                    get to work. We will keep you informed by updating the status of the 
+                    project from our end, as it progresses. Upon completion of the project 
+                    please click 'sign off' button, which will itself unlock a <link rel="stylesheet" href=""> through 
+                    which you can make a secure payment.</p>
+                {% endif %}
             </div>
         </div>
     </div>
     <br>
-    <div class="container">
+    <div class="stretch-container">
         <div class="row">
             <div class="col-12">
                 <table class="project-detail">
                     <tr>
+                        {% for project in projects %}
                         <th class="project-detail {% if project.signed_off == True %} status_green {% elif project.task1_status != 'To Do' %} status_orange {% else %} status_red {% endif %}">
                             <p class="project_status">{{ project.project_title }}</p>
                         </th>
+                        {% endfor %}
                     </tr>
                     <tr>
+                        {% for project in projects %}
                         <td class="{% if project.signed_off == True %} status_green {% elif project.task1_status != 'To Do' %} status_orange {% else %} status_red {% endif %}">
                             <p class="project_status">Project status: {{ project.project_status }}</p>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% if project.approved == False %}
                     <tr>
-                        <td>
-                        <div class="row">
-                            <div class="col-12">
-                                <center><a class="btn btn-primary" href="{% url 'edit' project.pk %}" role="button" id="edit">Edit <i class="material-icons" style="font-size:20px;">edit</i></a></center>
+                        {% for project in projects %}
+                        <td class="gradient">
+                            <div class="row">
+                                <div class="col-12">
+                                    <center><a class="btn btn-primary" href="{% url 'edit' project.pk %}" role="button" id="edit">Edit <i class="material-icons" style="font-size:20px;">edit</i></a></center>
+                                </div>
                             </div>
-                        </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% else %}
                     <!-- Blank -->
                     {% endif %}
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                             <div id="accordion">
                                 <div class="card">
-                                    <div class="card-header">
+                                    <div class="card-header gradient">
                                         <a class="card-link" data-toggle="collapse" href="#collapseOne">
                                             <div class="row">
                                                 <div class="col-10">
@@ -60,17 +85,19 @@
                                         </a>
                                     </div>
                                     <div id="collapseOne" class="collapse hide" data-parent="#accordion">
-                                        <div class="card-body">
-                                            {{ project.description }}
+                                        <div class="card-body project_desc">
+                                             <p class="project_sheet_tasks">{{ project.description }}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% if user.is_superuser %}
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                             <div class="row">
                                 <div class="col-6">
                                     <p class="project_sheet">Client: </p>
@@ -80,10 +107,12 @@
                                 </div>
                             </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% endif %}
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                             <div class="row">
                                 <div class="col-6">
                                     <p class="project_sheet">Fee (exc VAT): </p>
@@ -93,9 +122,11 @@
                                 </div>
                             </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                         <div class="row">
                             <div class="col-5">
                                 <p class="project_sheet">Approved: </p>
@@ -120,9 +151,11 @@
                             </div>
                         </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                             <div class="row">
                                 <div class="col-6">
                                     <p class="project_sheet">Deadline:</p>
@@ -132,10 +165,12 @@
                                 </div>
                             </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% if user.is_superuser %}
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                             <div class="row">
                                 <div class="col-9">
                                     <p class="project_sheet">Priority: </p>
@@ -151,10 +186,12 @@
                                 </div>
                             </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% if project.approved == True %}
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                             <div class="row">
                                 <div class="col-12">
                                     <p class="project_sheet">Manage Task Status:</p>
@@ -164,23 +201,37 @@
                                 <div class="col-12">
                                     <form class="status-update" action="{% url 'update_status' project.pk %}" method="POST">
                                         {% csrf_token %}
-                                        Task 1: {{ form.task1_status }} 
+                                        <p class="project_sheet_tasks">Task 1: {{ form.task1_status }} 
+                                        {% if project.task2_status == 'Done' or project.task2_status == 'Doing' or project.task2_status == 'To Do' %}
                                         Task 2: {{ form.task2_status }}
+                                        {% else %}
+                                        {% endif %}
                                         <br>
+                                        {% if project.task3_status == 'Done' or project.task3_status == 'Doing' or project.task3_status == 'To Do' %}
                                         Task 3: {{ form.task3_status }} 
+                                        {% else %}
+                                        {% endif %}
+                                        {% if project.task4_status == 'Done' or project.task4_status == 'Doing' or project.task4_status == 'To Do' %}
                                         Task 4: {{ form.task4_status }}
+                                        {% else %}
+                                        {% endif %}
                                         <br>
+                                        {% if project.task5_status == 'Done' or project.task5_status == 'Doing' or project.task5_status == 'To Do' %}
                                         Task 5: {{ form.task5_status }}
-                                        <button class="btn btn-primary float-center" type="submit" id="update">Update</button>
+                                        {% else %}
+                                        {% endif %}
+                                        <button class="btn btn-primary float-center" type="submit" id="update">Update</button></p>
                                     </form>
                                 </div>
                             </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% endif %}
                     {% endif %}
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                         <div class="row">
                             <div class="col-6">
                                 <p class="project_sheet">Task 1:</p>
@@ -199,10 +250,12 @@
                             </div>
                         </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% if project.task2_status == 'Done' or project.task2_status == 'Doing' or project.task2_status == 'To Do' %}
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                         <div class="row">
                             <div class="col-6">
                                 <p class="project_sheet">Task 2:</p>
@@ -221,13 +274,15 @@
                             </div>
                         </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% else %}
                     <!-- Empty -->
                     {% endif %}
                     {% if project.task3_status == 'Done' or project.task3_status == 'Doing' or project.task3_status == 'To Do' %}
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                         <div class="row">
                             <div class="col-6">
                                 <p class="project_sheet">Task 3:</p>
@@ -246,13 +301,15 @@
                             </div>
                         </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% else %}
                     <!-- Empty -->
                     {% endif %}
                     {% if project.task4_status == 'Done' or project.task4_status == 'Doing' or project.task4_status == 'To Do' %}
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                         <div class="row">
                             <div class="col-6">
                                 <p class="project_sheet">Task 4:</p>
@@ -271,13 +328,15 @@
                             </div>
                         </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% else %}
                     <!-- Empty -->
                     {% endif %}
                     {% if project.task5_status == 'Done' or project.task5_status == 'Doing' or project.task5_status == 'To Do' %}
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                         <div class="row">
                             <div class="col-6">
                                 <p class="project_sheet">Task 5:</p>
@@ -296,12 +355,14 @@
                             </div>
                         </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% else %}
                     <!-- Empty -->
                     {% endif %}
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                         <div class="row">
                             <div class="col-5">
                                 <p class="project_sheet">Signed off: </p>
@@ -328,10 +389,12 @@
                             </div>
                         </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% if user.is_superuser %}
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                         <div class="row">
                             <div class="col-9">
                                 <p class="project_sheet">Paid: </p>
@@ -345,14 +408,19 @@
                             </div>
                         </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% elif user == project.client %}
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                         <div class="row">
                             {% if project.paid == False and project.signed_off == True %}
                             <div class="col-12">
-                                <a class="btn" href="{% url 'confirm' project.pk %}" role="button" id="pay">Make Payment <i class="material-icons" style="font-size:24px">shopping_cart</i></a>
+                                <form method="POST" action="{% url 'confirm_payment' project.pk %}">
+                                    {% csrf_token %}
+                                    <button class="btn" id="pay">Make Payment <i class="material-icons" style="font-size:24px">shopping_cart</i></button>
+                                </form>
                             </div>
                             {% elif project.paid == False %}
                             <div class="col-9">
@@ -371,17 +439,20 @@
                             {% endif %}
                         </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% endif %}
                     {% if user.is_superuser %}
                     <tr>
-                        <td>
+                        {% for project in projects %}
+                        <td class="gradient">
                         <div class="row">
                             <div class="col-12">
                                 <center><a class="btn btn-danger" href="{% url 'delete_project' project.pk %}" role="button" id="delete">Delete <i class="material-icons" style="font-size:20px;">delete</i></a></center>
                             </div>
                         </div>
                         </td>
+                        {% endfor %}
                     </tr>
                     {% endif %}
                 </table>

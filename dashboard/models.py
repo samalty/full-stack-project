@@ -1,8 +1,10 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
+import datetime
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ValidationError
 
 class Project(models.Model):
     """ Model for individual project plans """
@@ -23,9 +25,9 @@ class Project(models.Model):
     plus_vat = models.DecimalField(blank=False, max_digits=6, decimal_places=2)
     launched = models.DateTimeField(blank=True, null=True, default=timezone.now)
     approved = models.BooleanField(blank=False, default=False)
-    deadline = models.DateField(blank=True)
+    deadline = models.DateField(blank=False)
     priority = models.CharField(max_length=6, choices=urgency, blank=False)
-    task1 = models.CharField(max_length=200, blank=True)
+    task1 = models.CharField(max_length=200, blank=False)
     task1_status = models.CharField(max_length=5, choices=status, blank=False, default='To Do')
     task2 = models.CharField(max_length=200, blank=True)
     task2_status = models.CharField(max_length=5, choices=status, blank=True)
@@ -49,12 +51,58 @@ class Project(models.Model):
         return reverse('project_detail', pk={"pk": self.pk})
     
     def save(self, *args, **kwargs):
-        """ Updates the project status based on the status of other fields """
+        
+        """ Ensures users can't set a deadline within a week of the current date """
+        if self.deadline < datetime.date.today() + datetime.timedelta(days=7):
+            raise ValidationError('Please ensure that the project deadline is set at least a week in advance')
+        
+        """ Calculates the VAT charge based on project cost """
         self.plus_vat = self.fee / 5
+        
+        """ Updates the project status based on the status of other fields """
         if self.signed_off == True:
             self.project_status = 'Done'
         elif self.task1_status != 'To Do':
             self.project_status = 'Doing'
         else:
             self.project_status = 'To Do'
+        
+        """ Ensures task status fields are filled when corresponding task field is used """
+        if self.task2 != '' and self.task2_status == '':
+            self.task2_status = 'To Do'
+        if self.task3 != '' and self.task3_status == '':
+            self.task3_status = 'To Do'
+        if self.task4 != '' and self.task4_status == '':
+            self.task4_status = 'To Do'
+        if self.task5 != '' and self.task5_status == '':
+            self.task5_status = 'To Do'
+        
         super(Project, self).save(*args, **kwargs)
+    
+    """ Logic within the save function has been replicated below to be called upon in tests.py """
+    
+    def seven_days_advance(self):
+        now = timezone.now()
+        return now + datetime.timedelta(days=7) <= self.deadline
+    
+    def deadline_validation_error(self):
+        now = timezone.now()
+        if not now + datetime.timedelta(days=7) <= self.deadline:
+            raise ValidationError('Please ensure that the project deadline is set at least a week in advance')
+    
+    def calculate_vat(self):
+        return self.fee / 5
+    
+    def decide_project_status(self):
+        if self.signed_off == True:
+            self.project_status = 'Done'
+        elif self.task1_status != 'To Do':
+            self.project_status = 'Doing'
+        else:
+            self.project_status = 'To Do'
+        return self.project_status
+    
+    def update_task_status(self):
+        if self.task2 != '' and self.task2_status == '':
+            self.task2_status = 'To Do'
+        return self.task2_status

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block page_title %}{{ post.user }}'s Profile{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-2 col-xs-0">
+            <!-- Empty for styling purposes -->
+        </div>
+        <div class="col-lg-6 col-md-8 col-xs-12">
+            <div id="profile" style="margin-top:100px;margin-bottom:100px">
+                <div class="row">
+                    <div class="col-md-5 col-xs-12">
+                        <img src="{{ post.user.userprofile.image.url }}" class="profile" height="150px" width="150px">
+                    </div>
+                    <div class="col-md-7 col-xs-12">
+                        <br>
+                        <h2 class="blog-text"><b><center>{{ post.user }}</center></b></h2>
+                        <h4 class="blog-text"><b><center>{{ post.user.email }}</center></b></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <br>
+                        <p class="blog-text"><b>About {{ post.user }}: </b>{{ post.user.userprofile.bio }}</p>
+                        <p class="blog-text"><b>Location: </b>{{ post.user.userprofile.location }}</p>
+                        <p class="blog-text"><b>Website: </b><a href="{{ post.user.userprofile.website }}">{{ post.user.userprofile.website }}</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-2 col-xs-0">
+            <!-- Empty for styling purposes -->
+        </div>
+    </div>
+</div>
+{% endblock %}

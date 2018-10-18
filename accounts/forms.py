@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.core.exceptions import ValidationError
-from accounts.models import UserProfile
+from .models import UserProfile
 
 class UserLoginForm(forms.Form):
     """ Form used to log users in """
@@ -40,4 +40,10 @@ class EditProfileForm(forms.ModelForm):
     """ Form used to edit user profile information """
     class Meta:
         model = UserProfile
-        fields = ['bio', 'location', 'website', 'image']
+        fields = ['bio', 'location', 'website']
+
+class EditImageForm(forms.ModelForm):
+    """ Form used to update profile image """
+    class Meta:
+        model = UserProfile
+        fields = ['image']

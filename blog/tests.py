@@ -1,3 +1,124 @@
-from django.test import TestCase
+from django.test import TestCase, Client
+from .models import Post
+from .forms import BlogPostForm
+from django.contrib.auth.models import User
+import datetime
+from django.utils import timezone
+from django.urls import reverse
+from django.http import HttpRequest
+from . import views
 
-# Create your tests here.
+
+# To run tests enter 'python3 manage.py test blog' in the terminal
+
+class BlogViewsTests(TestCase):
+    
+    def test_get_posts_page(self):
+        user = User.objects.create_user(username='Test',
+                                        email='test@domain.com',
+                                        password='Testing')
+        self.client.login(username='Test', password='Testing')
+        response = self.client.get('/blog/')
+        
+        """ Tests response status code """
+        self.assertEqual(response.status_code, 200)
+        
+        """ Tests correct template is used """
+        self.assertTemplateUsed(response, 'blogposts.html')
+        
+        """ Tests page contains correct html """
+        self.assertContains(response, 'Contribute to the conversation')
+        self.assertNotContains(response, 'This should not be on the page')
+    
+    def test_post_detail_page(self):
+        user = User.objects.create_user(username='Test',
+                                        email='test@domain.com',
+                                        password='Testing')
+        self.client.login(username='Test', password='Testing')
+        post = Post.objects.create(user=user,
+                                   title='Test post',
+                                   content='This is a test blog post.',
+                                   tag='Test',
+                                   slug='test-post')
+        post.save()
+        response = self.client.get('/blog/{0}/'.format(post.slug))
+        
+        """ Tests response status code """
+        self.assertEqual(response.status_code, 200)
+        
+        """ Tests correct template is used """
+        self.assertTemplateUsed(response, 'postdetail.html')
+        
+        """ Tests page contains correct html """
+        self.assertContains(response, 'Published on')
+        self.assertNotContains(response, 'This should not be on the page')
+    
+    def test_create_or_edit_post_page(self):
+        user = User.objects.create_user(username='Test',
+                                        email='test@domain.com',
+                                        password='Testing')
+        self.client.login(username='Test', password='Testing')
+        post = Post.objects.create(user=user,
+                                   title='Test post',
+                                   content='This is a test blog post.',
+                                   tag='Test',
+                                   slug='test-post')
+        post.save()
+        response = self.client.get('/blog//new/')
+        
+        """ Tests response status code """
+        self.assertEqual(response.status_code, 200)
+        
+        """ Tests correct template is used """
+        self.assertTemplateUsed(response, 'blogpostform.html')
+        
+        """ Tests page contains correct html """
+        self.assertContains(response, 'Add a post below')
+        self.assertNotContains(response, 'This should not be on the page')
+
+class PostModelTests(TestCase):
+    
+    def test_post_model(self):
+        
+        user = User.objects.create_user(username='Test',
+                                        email='test@domain.com',
+                                        password='Testing')
+        self.client.login(username='Test', password='Testing')
+        
+        post = Post(user=user,
+                    title='Test Post',
+                    content='This is a test post.')
+        post.save()
+
+        """ Tests project instance is being stored in database """
+        self.assertTrue(isinstance(post, Post))
+        
+        """ Tests project fields are logged correctly """
+        self.assertEqual(post.title, 'Test Post')
+        self.assertEqual(post.content, 'This is a test post.')
+        
+        """ Tests default settings for views """
+        self.assertEqual(post.views, 0)
+        
+        """ Tests model's create_slug function works """
+        self.assertEqual(str(post.slug), 'test-post')
+
+class BlogPostFormTests(TestCase):
+    
+    def test_blog_post_form_invalid(self):
+        
+        form = BlogPostForm({'title': '',
+                             'content': ''})
+        
+        """ Tests form can't be submitted without filling all necessary fields """
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors['title'], [u'This field is required.'])
+        self.assertEqual(form.errors['content'], [u'This field is required.'])
+    
+    def test_blog_post_form_valid(self):
+        
+        form = BlogPostForm({'title': 'Test Post',
+                             'content': 'This is a test post.'})
+        
+        """ Tests form can be submitted having filled all necessary fields """
+        self.assertTrue(form.is_valid())

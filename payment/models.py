@@ -15,7 +15,7 @@ class Order(models.Model):
     postcode = models.CharField(max_length=20, blank=False)
     
     def __str__(self):
-        return "{0}-{1}".format(self.id, self.date)
+        return "{0}-{1}".format(self.pk, self.date)
 
 class OrderLineItem(models.Model):
     order = models.ForeignKey(Order, null=False)

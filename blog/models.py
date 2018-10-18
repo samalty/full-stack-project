@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+import datetime
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -9,8 +10,8 @@ from django.utils.text import slugify
 class Post(models.Model):
     """ Model for individual blog posts """
     user = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
-    title = models.CharField(max_length=200)
-    content = models.TextField()
+    title = models.CharField(max_length=200, blank=False)
+    content = models.TextField(blank=False)
     created_date = models.DateTimeField(auto_now_add=True)
     published_date = models.DateTimeField(blank=True, null=True, default=timezone.now)
     views = models.IntegerField(default=0)
@@ -28,8 +29,8 @@ class Post(models.Model):
         return reverse('post_detail', kwargs={"slug": self.slug})
 
     def get_like_url(self):
-        return reverse('like_toggle', kwargs={"slug": self.slug})
-
+        return reverse('like', kwargs={"slug": self.slug})
+    
 def create_slug(instance, new_slug=None):
     """ Recursive function to avoid duplicate slugs """
     slug = slugify(instance.title)

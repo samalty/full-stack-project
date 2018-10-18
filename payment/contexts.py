@@ -10,4 +10,4 @@ def cart_contents(request):
         project = get_object_or_404(Project, pk=id[0])
         total += project.fee + project.plus_vat
         cart_items.append({'id': id, 'project': project})
-    return { 'cart_items': cart_items, 'total': total }
+    return { 'cart_items': cart_items, 'total': total}

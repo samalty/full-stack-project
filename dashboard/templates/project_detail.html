@@ -27,7 +27,7 @@
                     <p class="header-desc">Once you are happy, click 'approve' and we will 
                     get to work. We will keep you informed by updating the status of the 
                     project from our end, as it progresses. Upon completion of the project 
-                    please click 'sign off' button, which will itself unlock a <link rel="stylesheet" href=""> through 
+                    please click 'sign off' button, which will itself unlock a link through 
                     which you can make a secure payment.</p>
                 {% endif %}
             </div>
@@ -39,22 +39,17 @@
             <div class="col-12">
                 <table class="project-detail">
                     <tr>
-                        {% for project in projects %}
                         <th class="project-detail {% if project.signed_off == True %} status_green {% elif project.task1_status != 'To Do' %} status_orange {% else %} status_red {% endif %}">
                             <p class="project_status">{{ project.project_title }}</p>
                         </th>
-                        {% endfor %}
                     </tr>
                     <tr>
-                        {% for project in projects %}
                         <td class="{% if project.signed_off == True %} status_green {% elif project.task1_status != 'To Do' %} status_orange {% else %} status_red {% endif %}">
                             <p class="project_status">Project status: {{ project.project_status }}</p>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% if project.approved == False %}
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                             <div class="row">
                                 <div class="col-12">
@@ -62,13 +57,11 @@
                                 </div>
                             </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% else %}
                     <!-- Blank -->
                     {% endif %}
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                             <div id="accordion">
                                 <div class="card">
@@ -92,11 +85,9 @@
                                 </div>
                             </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% if user.is_superuser %}
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                             <div class="row">
                                 <div class="col-6">
@@ -107,11 +98,9 @@
                                 </div>
                             </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% endif %}
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                             <div class="row">
                                 <div class="col-6">
@@ -122,10 +111,8 @@
                                 </div>
                             </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                         <div class="row">
                             <div class="col-5">
@@ -151,10 +138,8 @@
                             </div>
                         </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                             <div class="row">
                                 <div class="col-6">
@@ -165,11 +150,9 @@
                                 </div>
                             </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% if user.is_superuser %}
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                             <div class="row">
                                 <div class="col-9">
@@ -186,11 +169,9 @@
                                 </div>
                             </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% if project.approved == True %}
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                             <div class="row">
                                 <div class="col-12">
@@ -225,12 +206,10 @@
                                 </div>
                             </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% endif %}
                     {% endif %}
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                         <div class="row">
                             <div class="col-6">
@@ -250,11 +229,9 @@
                             </div>
                         </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% if project.task2_status == 'Done' or project.task2_status == 'Doing' or project.task2_status == 'To Do' %}
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                         <div class="row">
                             <div class="col-6">
@@ -274,14 +251,12 @@
                             </div>
                         </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% else %}
                     <!-- Empty -->
                     {% endif %}
                     {% if project.task3_status == 'Done' or project.task3_status == 'Doing' or project.task3_status == 'To Do' %}
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                         <div class="row">
                             <div class="col-6">
@@ -301,14 +276,12 @@
                             </div>
                         </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% else %}
                     <!-- Empty -->
                     {% endif %}
                     {% if project.task4_status == 'Done' or project.task4_status == 'Doing' or project.task4_status == 'To Do' %}
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                         <div class="row">
                             <div class="col-6">
@@ -328,14 +301,12 @@
                             </div>
                         </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% else %}
                     <!-- Empty -->
                     {% endif %}
                     {% if project.task5_status == 'Done' or project.task5_status == 'Doing' or project.task5_status == 'To Do' %}
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                         <div class="row">
                             <div class="col-6">
@@ -355,13 +326,11 @@
                             </div>
                         </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% else %}
                     <!-- Empty -->
                     {% endif %}
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                         <div class="row">
                             <div class="col-5">
@@ -389,11 +358,9 @@
                             </div>
                         </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% if user.is_superuser %}
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                         <div class="row">
                             <div class="col-9">
@@ -408,11 +375,9 @@
                             </div>
                         </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% elif user == project.client %}
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                         <div class="row">
                             {% if project.paid == False and project.signed_off == True %}
@@ -439,12 +404,10 @@
                             {% endif %}
                         </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% endif %}
                     {% if user.is_superuser %}
                     <tr>
-                        {% for project in projects %}
                         <td class="gradient">
                         <div class="row">
                             <div class="col-12">
@@ -452,7 +415,6 @@
                             </div>
                         </div>
                         </td>
-                        {% endfor %}
                     </tr>
                     {% endif %}
                 </table>

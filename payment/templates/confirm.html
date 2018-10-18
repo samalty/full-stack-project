@@ -20,46 +20,48 @@
             </div>
             <div class="col-md-8 col-xs-12">
                 <div class="invoice-container">
-                    <div class="row" id="shade">
-                        <div class="col-5">
-                            <p class="checkout">Project:</p>
+                    {% for item in cart_items %}
+                        <div class="row" id="shade">
+                            <div class="col-5">
+                                <p class="checkout">Project:</p>
+                            </div>
+                            <div class="col-7">
+                                <p class="invoice">{{ project.project_title }}</p>
+                            </div>
                         </div>
-                        <div class="col-7">
-                            <p class="invoice">{{ project.project_title }}</p>
+                        <div class="row">
+                            <div class="col-5">
+                                <p class="checkout">Project ID:</p>
+                            </div>
+                            <div class="col-7">
+                                <p class="invoice">{{ project.pk }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5">
-                            <p class="checkout">Project ID:</p>
+                        <div class="row" id="shade">
+                            <div class="col-5">
+                                <p class="checkout">Project fee:</p>
+                            </div>
+                            <div class="col-7">
+                                <p class="invoice">£{{ project.fee }}</p>
+                            </div>
                         </div>
-                        <div class="col-7">
-                            <p class="invoice">{{ project.pk }}</p>
+                        <div class="row">
+                            <div class="col-5">
+                                <p class="checkout">VAT:</p>
+                            </div>
+                            <div class="col-7">
+                                <p class="invoice">£{{ project.plus_vat }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row" id="shade">
-                        <div class="col-5">
-                            <p class="checkout">Project fee:</p>
+                        <div class="row" id="shade">
+                            <div class="col-5">
+                                <p class="checkout">Total:</p>
+                            </div>
+                            <div class="col-7">
+                                <p class="invoice">£{{ total }}</p>
+                            </div>
                         </div>
-                        <div class="col-7">
-                            <p class="invoice">£{{ project.fee }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5">
-                            <p class="checkout">VAT:</p>
-                        </div>
-                        <div class="col-7">
-                            <p class="invoice">£{{ project.plus_vat }}</p>
-                        </div>
-                    </div>
-                    <div class="row" id="shade">
-                        <div class="col-5">
-                            <p class="checkout">Total:</p>
-                        </div>
-                        <div class="col-7">
-                            <p class="invoice">£{{ total }}</p>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
                 <br>
                 <form method="POST" action="{% url 'confirm_payment' project.id %}" id="confirm">

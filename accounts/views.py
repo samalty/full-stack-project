@@ -30,7 +30,7 @@ def index(request):
 def logout(request):
     """ Logs the user out """
     auth.logout(request)
-    messages.success(request, "Thanks for dropping by. See you again soon :)")
+    messages.success(request, "Thanks for dropping by. See you again soon.")
     return redirect(reverse('login'))
 
 def login(request):

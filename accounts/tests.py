@@ -11,6 +11,22 @@ from .models import UserProfile
 
 class AccountsViewsTests(TestCase):
     
+    def setUp(self):
+        
+        self.user = User.objects.create_user(username='Test',
+                                        email='test@domain.com',
+                                        password='Testing')
+        
+        self.post = Post.objects.create(user=self.user,
+                                        title='Test post',
+                                        content='This is a test blog post.',
+                                        tag='Test',
+                                        slug='test-post')
+        self.post.save()
+        
+    def tearDown(self):
+        pass
+    
     def test_index_page(self):
         
         response = self.client.get('/')
@@ -41,12 +57,9 @@ class AccountsViewsTests(TestCase):
     
     def test_profile_page(self):
         
-        user = User.objects.create_user(username='Test',
-                                        email='test@domain.com',
-                                        password='Testing')
         self.client.login(username='Test', password='Testing')
         
-        response = self.client.get('/accounts/{0}/'.format(user.pk))
+        response = self.client.get('/accounts/{0}/'.format(self.user.pk))
         
         """ Tests instance of user has been created """
         self.assertEqual(User.objects.count(), 1)
@@ -63,12 +76,9 @@ class AccountsViewsTests(TestCase):
         
     def test_edit_profile_page(self):
         
-        user = User.objects.create_user(username='Test',
-                                        email='test@domain.com',
-                                        password='Testing')
         self.client.login(username='Test', password='Testing')
         
-        response = self.client.get('/accounts/{0}/edit/'.format(user.pk))
+        response = self.client.get('/accounts/{0}/edit/'.format(self.user.pk))
         
         """ Tests response status code """
         self.assertEqual(response.status_code, 200)
@@ -82,12 +92,9 @@ class AccountsViewsTests(TestCase):
     
     def test_update_image_page(self):
         
-        user = User.objects.create_user(username='Test',
-                                 email='test@domain.com',
-                                 password='Testing')
         self.client.login(username='Test', password='Testing')
         
-        response = self.client.get('/accounts/{0}/update_image/'.format(user.pk))
+        response = self.client.get('/accounts/{0}/update_image/'.format(self.user.pk))
         
         """ Tests response status code """
         self.assertEqual(response.status_code, 200)
@@ -101,19 +108,9 @@ class AccountsViewsTests(TestCase):
     
     def test_display_profile_page(self):
         
-        user = User.objects.create_user(username='Test',
-                                        email='test@domain.com',
-                                        password='Testing')
         self.client.login(username='Test', password='Testing')
         
-        post = Post.objects.create(user=user,
-                                   title='Test post',
-                                   content='This is a test blog post.',
-                                   tag='Test',
-                                   slug='test-post')
-        post.save()
-        
-        response = self.client.get('/accounts/{0}/author/'.format(post.slug))
+        response = self.client.get('/accounts/{0}/author/'.format(self.post.slug))
         
         """ Tests response status code """
         self.assertEqual(response.status_code, 200)
@@ -126,35 +123,37 @@ class AccountsViewsTests(TestCase):
 
 class UserProfileModelTests(TestCase):
     
-    def test_user_profile_model(self):
+    def setUp(self):
         
-        user = User.objects.create_user(username='Test',
-                                 email='test@domain.com',
-                                 password='Testing')
+        self.user = User.objects.create_user(username='Test',
+                                        email='test@domain.com',
+                                        password='Testing')
+                                        
         self.client.login(username='Test', password='Testing')
         
-        profile = UserProfile(user=user,
+        self.profile = UserProfile(user=self.user,
                               bio='This is a test bio.',
                               location='Coventry, UK',
                               website='https://www.test.com')
         
+    def tearDown(self):
+        pass
+    
+    def test_user_profile_model(self):
+        
         """ Tests project instance is being stored in database """
-        self.assertTrue(isinstance(profile, UserProfile))
+        self.assertTrue(isinstance(self.profile, UserProfile))
         
         """ Tests project fields are logged correctly """
-        self.assertEqual(profile.bio, 'This is a test bio.')
-        self.assertEqual(profile.location, 'Coventry, UK')
+        self.assertEqual(self.profile.bio, 'This is a test bio.')
+        self.assertEqual(self.profile.location, 'Coventry, UK')
         
         """ Tests default image for new users """
-        self.assertEqual(str(profile.image), 'profile_img/anon.png')
+        self.assertEqual(str(self.profile.image), 'profile_img/anon.png')
     
     def test_profile_function_for_new_users(self):
-        
-        user = User.objects.create_user(username='Test',
-                                 email='test@domain.com',
-                                 password='Testing')
                                  
-        profile_exists = UserProfile.objects.filter(user=user).exists()
+        profile_exists = UserProfile.objects.filter(user=self.user).exists()
         
         """ Test to ensure profile instances are automatically created for new users """
         self.assertEqual(UserProfile.objects.count(), 1)

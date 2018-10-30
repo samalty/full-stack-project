@@ -9,9 +9,9 @@ from django.core.exceptions import ValidationError
 class Project(models.Model):
     """ Model for individual project plans """
     urgency = (
-        ('High', 'High'),
-        ('Medium', 'Medium'),
-        ('Low', 'Low'),
+        ('1', 'High'),
+        ('2', 'Medium'),
+        ('3', 'Low'),
     )
     status = (
         ('To Do', 'To Do'),

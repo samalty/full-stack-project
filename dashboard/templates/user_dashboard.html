@@ -23,7 +23,7 @@
         <div class="col-6">
             <form class="option" method="GET">
                 {% csrf_token %}
-                <p class="order-by">Order projects by:</p>
+                <p class="order-by">Order by:</p>
                 <select id="order_projects" style="margin-bottom:15px">
                     <option value="">Select option...</option>
                     <option value="{% url 'user_dashboard' %}">Deadline</option>
@@ -150,9 +150,9 @@
                                         <p class="project_sheet">Priority: </p>
                                     </div>
                                     <div class="col-3">
-                                        {% if project.priority == 'High' %}
+                                        {% if project.priority == '1' %}
                                             <i class="material-icons" style="font-size:36px;color:#cc0000;float:right;">report</i>
-                                        {% elif project.priority == 'Medium' %}
+                                        {% elif project.priority == '2' %}
                                             <i class="material-icons" style="font-size:36px;color:#ff9900;float:right;">sentiment_neutral</i>
                                         {% else %}
                                             <i class="material-icons" style="font-size:36px;color:#009963;float:right;">low_priority</i>

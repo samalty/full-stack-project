@@ -159,9 +159,9 @@
                                     <p class="project_sheet">Priority: </p>
                                 </div>
                                 <div class="col-3">
-                                    {% if project.priority == 'High' %}
+                                    {% if project.priority == '1' %}
                                         <i class="material-icons" style="font-size:36px;color:#cc0000;float:right;">report</i>
-                                    {% elif project.priority == 'Medium' %}
+                                    {% elif project.priority == '2' %}
                                         <i class="material-icons" style="font-size:36px;color:#ff9900;float:right;">sentiment_neutral</i>
                                     {% else %}
                                         <i class="material-icons" style="font-size:36px;color:#009963;float:right;">low_priority</i>
@@ -382,7 +382,7 @@
                         <div class="row">
                             {% if project.paid == False and project.signed_off == True %}
                             <div class="col-12">
-                                <form method="POST" action="{% url 'confirm_payment' project.pk %}">
+                                <form method="POST" class="gradient" id="confirm" action="{% url 'confirm_payment' project.id %}">
                                     {% csrf_token %}
                                     <button class="btn" id="pay">Make Payment <i class="material-icons" style="font-size:24px">shopping_cart</i></button>
                                 </form>

@@ -4,28 +4,29 @@ from django.contrib import messages
 from django.conf import settings
 from django.utils import timezone
 from dashboard.models import Project
+from dashboard.views import user_dashboard
 from .forms import PaymentForm, OrderForm
 from .models import Order, OrderLineItem
-from dashboard.models import Project
 import stripe
 
 
 stripe.api_key = settings.STRIPE_SECRET
 
 @login_required()
-def confirm(request, pk):
-    """ Renders the payment confirmation page """
-    project = get_object_or_404(Project, pk=pk)
-    total = project.fee + project.plus_vat
-    return render(request, 'confirm.html', {'project': project, 'total': total})
+def confirm_payment(request, id):
+    """ Adds project to user's cart and redirects to confirm page """
+    quantity=int(1)
+    cart = request.session.get('cart', {})
+#    cart[id] = 1 # 1 is quantity?
+    cart[id] = cart.get(id, quantity)
+    request.session['cart'] = cart
+    print(cart)
+    return redirect(confirm)
 
 @login_required()
-def confirm_payment(request, id):
-    """ Adds project to user's cart and redirects to checkout """
-    cart = request.session.get('cart', {})
-    cart[id] = cart.get(id)
-    request.session['cart'] = cart
-    return redirect(checkout)
+def confirm(request):
+    """ Renders the payment confirmation page, including cart contents """
+    return render(request, 'confirm.html')
 
 @login_required()
 def checkout(request):
@@ -41,20 +42,14 @@ def checkout(request):
             
             cart = request.session.get('cart', {})
             total = 0
-            for id in cart.items():
-                project = get_object_or_404(Project, pk=id[0])
-                total = project.fee + project.plus_vat
+            for id, quantity in cart.items():
+                project = get_object_or_404(Project, pk=id)
+                total += project.fee + project.plus_vat
                 order_line_item = OrderLineItem(
                     order = order,
-                    project = project
+                    project = project,
                     )
                 order_line_item.save()
-                project.paid=True
-                project.save()
-            context = {
-                'project': project,
-                'total': total,
-            }
             try:
                 customer = stripe.Charge.create(
                     amount = int(total * 100),
@@ -67,7 +62,9 @@ def checkout(request):
             
             if customer.paid:
                 request.session['cart'] = {}
-                return redirect(receipt, project.pk)
+                project.paid=True
+                project.save()
+                return redirect(receipt)
             else:
                 messages.error(request, "Sorry. We were unable to process your payment. Please try again.")
         else:
@@ -76,16 +73,9 @@ def checkout(request):
     else:
         payment_form = PaymentForm()
         order_form = OrderForm()
-    context = {
-        'order_form': order_form,
-        'payment_form': payment_form,
-        'publishable': settings.STRIPE_PUBLISHABLE,
-    }
-    return render(request, 'checkout.html', context)
+    return render(request, 'checkout.html', {'order_form': order_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE})
 
 @login_required()
-def receipt(request, pk):
+def receipt(request):
     """ Renders the receipt page """
-    project = get_object_or_404(Project, pk=pk)
-    total = project.fee + project.plus_vat
-    return render(request, 'receipt.html', {'project': project, 'total': total})
+    return render(request, 'receipt.html')

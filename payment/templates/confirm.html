@@ -26,7 +26,7 @@
                                 <p class="checkout">Project:</p>
                             </div>
                             <div class="col-7">
-                                <p class="invoice">{{ project.project_title }}</p>
+                                <p class="invoice">{{ item.project.project_title }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -34,7 +34,7 @@
                                 <p class="checkout">Project ID:</p>
                             </div>
                             <div class="col-7">
-                                <p class="invoice">{{ project.pk }}</p>
+                                <p class="invoice">{{ item.project.pk }}</p>
                             </div>
                         </div>
                         <div class="row" id="shade">
@@ -42,7 +42,7 @@
                                 <p class="checkout">Project fee:</p>
                             </div>
                             <div class="col-7">
-                                <p class="invoice">£{{ project.fee }}</p>
+                                <p class="invoice">£{{ item.project.fee }}</p>
                             </div>
                         </div>
                         <div class="row">
@@ -50,7 +50,7 @@
                                 <p class="checkout">VAT:</p>
                             </div>
                             <div class="col-7">
-                                <p class="invoice">£{{ project.plus_vat }}</p>
+                                <p class="invoice">£{{ item.project.plus_vat }}</p>
                             </div>
                         </div>
                         <div class="row" id="shade">
@@ -64,10 +64,8 @@
                     {% endfor %}
                 </div>
                 <br>
-                <form method="POST" action="{% url 'confirm_payment' project.id %}" id="confirm">
-                    {% csrf_token %}
-                    <button class="btn" type="submit" id="submit-payment">Confirm Payment</button>
-                </form>
+                <br>
+                <a href="{% url 'checkout' %}" class="btn" id="checkout">Checkout <i class="material-icons" style="font-size:24px">shopping_cart</i></a>
             </div>
             <div class="col-md-2 col-xs-0">
                 <!-- Empty for styling purposes -->

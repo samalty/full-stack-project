@@ -13,21 +13,27 @@ from . import views
 
 class PaymentViewsTests(TestCase):
     
-    def test_confirm_page(self):
+    def setUp(self):
         
-        user = User.objects.create_user(username='Test',
-                                 email='test@domain.com',
-                                 password='Testing')
+        self.user = User.objects.create_user(username='Test',
+                                             email='test@domain.com',
+                                             password='Testing')
+        
         self.client.login(username='Test', password='Testing')
         
-        project = Project.objects.create(project_title='Test Project',
-                                         description='This is a test project.',
-                                         client=user,
-                                         fee=750.00,
-                                         deadline=datetime.date.today()+datetime.timedelta(days=10))
-        project.save()
+        self.project = Project.objects.create(project_title='Test Project',
+                                              description='This is a test project.',
+                                              client=self.user,
+                                              fee=750.00,
+                                              deadline=datetime.date.today()+datetime.timedelta(days=10))
+        self.project.save()
+    
+    def tearDown(self):
+        pass
+
+    def test_confirm_page(self):
         
-        response = self.client.get('/payment/{0}/'.format(project.pk))
+        response = self.client.get('/payment/{0}/'.format(self.project.id))
         
         """ Tests response status code """
         self.assertEqual(response.status_code, 200)
@@ -40,11 +46,6 @@ class PaymentViewsTests(TestCase):
         self.assertNotContains(response, 'This should not be on the page')
     
     def test_checkout_page(self):
-        
-        user = User.objects.create_user(username='Test',
-                                 email='test@domain.com',
-                                 password='Testing')
-        self.client.login(username='Test', password='Testing')
         
         response = self.client.get('/payment/checkout/')
         
@@ -60,19 +61,7 @@ class PaymentViewsTests(TestCase):
     
     def test_receipt_page(self):
         
-        user = User.objects.create_user(username='Test',
-                                 email='test@domain.com',
-                                 password='Testing')
-        self.client.login(username='Test', password='Testing')
-        
-        project = Project.objects.create(project_title='Test Project',
-                                         description='This is a test project.',
-                                         client=user,
-                                         fee=750.00,
-                                         deadline=datetime.date.today()+datetime.timedelta(days=10))
-        project.save()
-        
-        response = self.client.get('/payment/receipt/{0}/'.format(project.pk))
+        response = self.client.get('/payment/receipt/')
         
         """ Tests response status code """
         self.assertEqual(response.status_code, 200)
@@ -81,7 +70,7 @@ class PaymentViewsTests(TestCase):
         self.assertTemplateUsed(response, 'receipt.html')
         
         """ Tests page contains correct html """
-        self.assertContains(response, 'Your payment for')
+        self.assertContains(response, 'Your payment has been successfully processed')
         self.assertNotContains(response, 'This should not be on the page')
 
 class OrderModelTests(TestCase):
@@ -89,8 +78,8 @@ class OrderModelTests(TestCase):
     def test_order_model(self):
         
         user = User.objects.create_user(username='Test',
-                                 email='test@domain.com',
-                                 password='Testing')
+                                        email='test@domain.com',
+                                        password='Testing')
         self.client.login(username='Test', password='Testing')
         
         order = Order(company_name='Test Co',
@@ -113,22 +102,22 @@ class OrderModelTests(TestCase):
     def test_order_line_item_model(self):
         
         user = User.objects.create_user(username='Test',
-                                 email='test@domain.com',
-                                 password='Testing')
+                                        email='test@domain.com',
+                                        password='Testing')
         self.client.login(username='Test', password='Testing')
         
         test_project = Project.objects.create(project_title='Test Project',
-                                         description='This is a test project.',
-                                         client=user,
-                                         fee=750.00,
-                                         deadline=datetime.date.today()+datetime.timedelta(days=10))
+                                              description='This is a test project.',
+                                              client=user,
+                                              fee=750.00,
+                                              deadline=datetime.date.today()+datetime.timedelta(days=10))
                                          
         test_order = Order(company_name='Test Co',
-                      date=datetime.date.today(),
-                      town_or_city='Testerton',
-                      street_address1='7 Test Close',
-                      county='Testshire',
-                      postcode='TE5T 1NG')
+                           date=datetime.date.today(),
+                           town_or_city='Testerton',
+                           street_address1='7 Test Close',
+                           county='Testshire',
+                           postcode='TE5T 1NG')
         
         orderlineitem = OrderLineItem(order=test_order,
                                       project=test_project)
@@ -144,13 +133,20 @@ class PaymentOrderFormTests(TestCase):
     def test_payment_form_invalid(self):
         
         form = PaymentForm({'credit_card_number': '4242424242424242',
-                            'cvv': '111',
-                            'expiry_month': '8',
-                            'expiry_year': '2018'})
+                            'cvv': '',
+                            'expiry_month': '10',
+                            'expiry_year': '2020'})
         
         """ Tests form can't be submitted without filling all necessary fields """
         self.assertFalse(form.is_valid())
-#        self.assertEqual(form.errors['credit_card_number'], [u'The card number is not a valid credit card number.'])
-#        self.assertEqual(form.errors['cvv'], [u'This field is required.'])
-        self.assertEqual(form.errors['expiry_month'], [u"Your card's expiration month is invalid."])
-#        self.assertEqual(form.errors['expiry_year'], [u'This field is required.'])
+        self.assertEqual(form.errors['stripe_id'], [u'This field is required.'])
+    
+    def test_payment_form_valid(self):
+        
+        form = PaymentForm({'credit_card_number': '4242424242424242',
+                            'cvv': '111',
+                            'expiry_month': '10',
+                            'expiry_year': '2020'})
+        
+        """ Tests form submits when all necessary fields are completed """
+        self.assertTrue(form.is_valid())

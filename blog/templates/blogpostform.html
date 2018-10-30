@@ -23,8 +23,9 @@
             <form method="POST" enctype="multipart/form-data" class="new-blog">
                 {% csrf_token %}
                 {{ form | as_bootstrap }}
-                <button class="btn btn-primary float-center" type="submit" id="save">Publish Post</button>
-                <a class="btn btn-primary float-right" href="{% url 'get_posts' %}" role="button" id="save">Back to Blog</a>
+                <a class="btn btn-primary float-left" href="{% url 'get_posts' %}" role="button" id="save"><i class="material-icons" style="font-size:16px">arrow_back</i> Back</a>
+                <button class="btn btn-primary float-right" type="submit" id="save">Publish</button>
+                <br>
             </form>
         </div>
         <div class="col-md-2 col-xs-0">

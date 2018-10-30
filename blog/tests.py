@@ -13,11 +13,26 @@ from . import views
 
 class BlogViewsTests(TestCase):
     
-    def test_get_posts_page(self):
-        user = User.objects.create_user(username='Test',
-                                        email='test@domain.com',
-                                        password='Testing')
+    def setUp(self):
+        
+        self.user = User.objects.create_user(username='Test',
+                                             email='test@domain.com',
+                                             password='Testing')
+        
         self.client.login(username='Test', password='Testing')
+        
+        self.post = Post.objects.create(user=self.user,
+                                        title='Test post',
+                                        content='This is a test blog post.',
+                                        tag='Test',
+                                        slug='test-post')
+        self.post.save()
+    
+    def tearDown(self):
+        pass
+    
+    def test_get_posts_page(self):
+        
         response = self.client.get('/blog/')
         
         """ Tests response status code """
@@ -31,17 +46,8 @@ class BlogViewsTests(TestCase):
         self.assertNotContains(response, 'This should not be on the page')
     
     def test_post_detail_page(self):
-        user = User.objects.create_user(username='Test',
-                                        email='test@domain.com',
-                                        password='Testing')
-        self.client.login(username='Test', password='Testing')
-        post = Post.objects.create(user=user,
-                                   title='Test post',
-                                   content='This is a test blog post.',
-                                   tag='Test',
-                                   slug='test-post')
-        post.save()
-        response = self.client.get('/blog/{0}/'.format(post.slug))
+        
+        response = self.client.get('/blog/{0}/'.format(self.post.slug))
         
         """ Tests response status code """
         self.assertEqual(response.status_code, 200)
@@ -54,16 +60,7 @@ class BlogViewsTests(TestCase):
         self.assertNotContains(response, 'This should not be on the page')
     
     def test_create_or_edit_post_page(self):
-        user = User.objects.create_user(username='Test',
-                                        email='test@domain.com',
-                                        password='Testing')
-        self.client.login(username='Test', password='Testing')
-        post = Post.objects.create(user=user,
-                                   title='Test post',
-                                   content='This is a test blog post.',
-                                   tag='Test',
-                                   slug='test-post')
-        post.save()
+        
         response = self.client.get('/blog//new/')
         
         """ Tests response status code """
@@ -78,30 +75,37 @@ class BlogViewsTests(TestCase):
 
 class PostModelTests(TestCase):
     
-    def test_post_model(self):
+    def setUp(self):
         
-        user = User.objects.create_user(username='Test',
-                                        email='test@domain.com',
-                                        password='Testing')
+        self.user = User.objects.create_user(username='Test',
+                                             email='test@domain.com',
+                                             password='Testing')
+        
         self.client.login(username='Test', password='Testing')
         
-        post = Post(user=user,
-                    title='Test Post',
-                    content='This is a test post.')
-        post.save()
+        self.post = Post(user=self.user,
+                         title='Test Post',
+                         content='This is a test post.')
+        self.post.save()
+        
+    def tearDown(self):
+        pass
+
+    def test_post_model(self):
+        
 
         """ Tests project instance is being stored in database """
-        self.assertTrue(isinstance(post, Post))
+        self.assertTrue(isinstance(self.post, Post))
         
         """ Tests project fields are logged correctly """
-        self.assertEqual(post.title, 'Test Post')
-        self.assertEqual(post.content, 'This is a test post.')
+        self.assertEqual(self.post.title, 'Test Post')
+        self.assertEqual(self.post.content, 'This is a test post.')
         
         """ Tests default settings for views """
-        self.assertEqual(post.views, 0)
+        self.assertEqual(self.post.views, 0)
         
         """ Tests model's create_slug function works """
-        self.assertEqual(str(post.slug), 'test-post')
+        self.assertEqual(str(self.post.slug), 'test-post')
 
 class BlogPostFormTests(TestCase):
     

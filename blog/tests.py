@@ -73,6 +73,16 @@ class BlogViewsTests(TestCase):
         self.assertContains(response, 'Add a post below')
         self.assertNotContains(response, 'This should not be on the page')
 
+    def test_delete_post_function(self):
+        
+        response = self.client.get('/blog/{0}/delete/'.format(self.post.slug))
+        
+        """ Tests calling on function results in redirect when client is superuser """
+        self.assertEqual(response.status_code, 302)
+        
+        """ Tests function has deleted project """
+        self.assertTrue(self.post.delete())
+
 class PostModelTests(TestCase):
     
     def setUp(self):
@@ -100,6 +110,9 @@ class PostModelTests(TestCase):
         """ Tests project fields are logged correctly """
         self.assertEqual(self.post.title, 'Test Post')
         self.assertEqual(self.post.content, 'This is a test post.')
+        
+        """ Tests post model foreign key works """
+        self.assertEqual(self.post.user, self.user)
         
         """ Tests default settings for views """
         self.assertEqual(self.post.views, 0)

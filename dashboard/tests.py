@@ -15,9 +15,9 @@ class DashboardViewsTests(TestCase):
     
     def setUp(self):
         
-        self.user = User.objects.create_user(username='Test',
-                                             email='test@domain.com',
-                                             password='Testing')
+        self.user = User.objects.create_superuser(username='Test',
+                                                  email='test@domain.com',
+                                                  password='Testing')
         
         self.client.login(username='Test', password='Testing')
         
@@ -31,7 +31,6 @@ class DashboardViewsTests(TestCase):
     def tearDown(self):
         pass
     
-
     def test_dashboard_page(self):
         
         response = self.client.get('/dashboard/')
@@ -45,7 +44,7 @@ class DashboardViewsTests(TestCase):
         """ Tests page contains correct html """
         self.assertContains(response, 'This is your dashboard')
         self.assertNotContains(response, 'This should not be on the page')
-
+        
     def test_project_detail_page(self):
         
         response = self.client.get('/dashboard/{0}/'.format(self.project.pk))
@@ -65,14 +64,14 @@ class DashboardViewsTests(TestCase):
         response = self.client.get('/dashboard/plan_project/')
         
         """ Tests response status code """
-        #self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         
         """ Tests correct template is used """
-        #self.assertTemplateUsed(response, 'plan_project.html')
+        self.assertTemplateUsed(response, 'plan_project.html')
         
         """ Tests page contains correct html """
-        #self.assertContains(response, 'Just agreed on a new project with a client')
-        #self.assertNotContains(response, 'This should not be on the page')
+        self.assertContains(response, 'Just agreed on a new project with a client')
+        self.assertNotContains(response, 'This should not be on the page')
     
     def test_edit_page(self):
         
@@ -87,7 +86,57 @@ class DashboardViewsTests(TestCase):
         """ Tests page contains correct html """
         self.assertContains(response, 'Project plan still requires some fine tuning')
         self.assertNotContains(response, 'This should not be on the page')
+
+class ProjectFunctionTests(TestCase):
+    
+    def setUp(self):
         
+        self.user = User.objects.create_superuser(username='Test',
+                                                  email='test@domain.com',
+                                                  password='Testing')
+        
+        self.client.login(username='Test', password='Testing')
+        
+        self.project = Project.objects.create(project_title='Test Project',
+                                              description='This is a test project.',
+                                              client=self.user,
+                                              fee=750.00,
+                                              deadline=datetime.date.today()+datetime.timedelta(days=10))
+        self.project.save()
+    
+    def tearDown(self):
+        pass
+    
+    def test_delete_project_function(self):
+        
+        response = self.client.get('/dashboard/{0}/delete/'.format(self.project.pk))
+        
+        """ Tests calling on function results in redirect when client is superuser """
+        self.assertEqual(response.status_code, 302)
+        
+        """ Tests function has deleted project """
+        self.assertTrue(self.project.delete())
+    
+    def test_approve_project_function(self):
+        
+        response = self.client.get('/dashboard/{0}/approve/'.format(self.project.pk))
+        
+        """ Tests calling on function results in redirect """
+        self.assertEqual(response.status_code, 302)
+        
+        """ Tests function has approved project """
+        #self.assertTrue(self.project.approved)
+    
+    def test_sign_off_function(self):
+        
+        response = self.client.get('/dashboard/{0}/sign_off/'.format(self.project.pk))
+        
+        """ Tests calling on function results in redirect """
+        self.assertEqual(response.status_code, 302)
+        
+        """ Tests function has approved project """
+        #self.assertTrue(self.project.signed_off)
+    
 class ProjectModelTests(TestCase):
     
     def setUp(self):
@@ -137,14 +186,6 @@ class ProjectModelTests(TestCase):
         """ Tests method to ensure deadlines aren't set within 10 days is functional """
         self.assertIs(new_project1.seven_days_advance(), False)
         self.assertIs(new_project2.seven_days_advance(), True)
-    
-#    def test_insufficient_notice_returns_validation_error(self):
-        
-        """ Tests that deadlines set within a week return validation error """
-        #with self.assertRaises(ValidationError):
-        #    deadline_validation_error(3)
-        
-#        self.assertRaises(ValidationError, deadline_validation_error, 3)
     
     def test_calculate_vat(self):
         

@@ -6,6 +6,7 @@ from .models import Order, OrderLineItem
 from .forms import PaymentForm, OrderForm
 from django.contrib.auth.models import User
 import datetime
+import os
 from django.utils import timezone
 from . import views
 
@@ -33,7 +34,7 @@ class PaymentViewsTests(TestCase):
 
     def test_confirm_page(self):
         
-        response = self.client.get('/payment/{0}/'.format(self.project.id))
+        response = self.client.get('/payment/')
         
         """ Tests response status code """
         self.assertEqual(response.status_code, 200)
@@ -72,6 +73,13 @@ class PaymentViewsTests(TestCase):
         """ Tests page contains correct html """
         self.assertContains(response, 'Your payment has been successfully processed')
         self.assertNotContains(response, 'This should not be on the page')
+    
+    def test_confirm_payment_function(self):
+        
+        response = self.client.get('/payment/confirm/{0}/'.format(self.project.id))
+        
+        """ Tests calling on function results in redirect """
+        self.assertEqual(response.status_code, 302)
 
 class OrderModelTests(TestCase):
     
@@ -146,7 +154,35 @@ class PaymentOrderFormTests(TestCase):
         form = PaymentForm({'credit_card_number': '4242424242424242',
                             'cvv': '111',
                             'expiry_month': '10',
-                            'expiry_year': '2020'})
+                            'expiry_year': '2020',
+                            'stripe_id': os.getenv('STRIPE_SECRET')})
+        
+        """ Tests form submits when all necessary fields are completed """
+        self.assertTrue(form.is_valid())
+    
+    def test_order_form_invalid(self):
+        
+        form = OrderForm({'company_name': '',
+                          'town_or_city': 'Testerton',
+                          'street_address1': '',
+                          'county': 'Testshire',
+                          'country': 'UK',
+                          'postcode': ''})
+        
+        """ Tests form can't be submitted without filling all necessary fields """
+        self.assertFalse(form.is_valid())
+        self.assertEqual(form.errors['company_name'], [u'This field is required.'])
+        self.assertEqual(form.errors['street_address1'], [u'This field is required.'])
+        self.assertEqual(form.errors['postcode'], [u'This field is required.'])
+    
+    def test_order_form_valid(self):
+        
+        form = OrderForm({'company_name': 'Test Co',
+                          'town_or_city': 'Testerton',
+                          'street_address1': '7 Test Close',
+                          'county': 'Testshire',
+                          'country': 'UK',
+                          'postcode': 'TE5T 1NG'})
         
         """ Tests form submits when all necessary fields are completed """
         self.assertTrue(form.is_valid())

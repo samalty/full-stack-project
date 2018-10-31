@@ -54,8 +54,6 @@ class PostLike(RedirectView):
         liked = False
         if user.is_authenticated():
             if user in obj.likes.all():
-#                liked = False
-#                obj.likes.remove(user)
                 liked = True
                 obj.likes.add(user)
             else:
@@ -66,6 +64,4 @@ class PostLike(RedirectView):
             "updated": updated,
             "liked": liked,
         }
-        
-        print(data)
         return url_

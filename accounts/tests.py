@@ -121,6 +121,16 @@ class AccountsViewsTests(TestCase):
         """ Tests page contains correct html """
         self.assertNotContains(response, 'This should not be on the page')
 
+    def test_logout_function(self):
+        
+        response = self.client.get('/accounts/logout/')
+        
+        """ Tests logout function redirects user """
+        self.assertEqual(response.status_code, 302)
+        
+        """ Tests function logs user out """
+        self.assertFalse(self.client.login())
+
 class UserProfileModelTests(TestCase):
     
     def setUp(self):

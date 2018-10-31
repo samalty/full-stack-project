@@ -85,11 +85,6 @@ class Project(models.Model):
         now = timezone.now()
         return now + datetime.timedelta(days=7) <= self.deadline
     
-    def deadline_validation_error(self):
-        now = timezone.now()
-        if not now + datetime.timedelta(days=7) <= self.deadline:
-            raise ValidationError('Please ensure that the project deadline is set at least a week in advance')
-    
     def calculate_vat(self):
         return self.fee / 5
     

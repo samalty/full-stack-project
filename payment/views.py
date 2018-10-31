@@ -17,10 +17,8 @@ def confirm_payment(request, id):
     """ Adds project to user's cart and redirects to confirm page """
     quantity=int(1)
     cart = request.session.get('cart', {})
-#    cart[id] = 1 # 1 is quantity?
     cart[id] = cart.get(id, quantity)
     request.session['cart'] = cart
-    print(cart)
     return redirect(confirm)
 
 @login_required()

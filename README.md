@@ -89,7 +89,14 @@ Other than this, there were no cross-browser issues with functionality or design
 
 ## Deployment
 
-A Heroku Postgres database was included as an add-on
+The final project was pushed to Github, before being deployed to Heroku by way of connecting to the Github workspace. A Heroku Postgres 
+database was included as an add-on when setting up the app in Heroku. Heroku came with its own database URL within config variables, which 
+I was required to replicate within the env.py file in Cloud9, before copying the remaining cnfig variables from the env.py file to Heroku.
+
+'gunicorn' was installed via the bash terminal to allow the project to connect to Heroku, and 'psycopg2' was installed to enable the project 
+to interact with the SQL database. The requirements.txt file was duly updated. A Procfile was added to convey to Heroku the type of app that 
+it is hosting. Finally, 'full-stack-frameworks-project.herokuapp.com' was added to the allowed hosts within the settings.py file, before being 
+pushed to git, to authorise Heroku as a host, before deploying the master branch.
 
 With the premise being that companies would white-label this application and offer it to their clients, the project demo assumes that the 
 application has been adopted by a fictional company called 'ABC Copywriting'. While when previewing the project, you are able to register 

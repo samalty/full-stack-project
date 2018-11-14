@@ -8,8 +8,8 @@ from blog.models import Post
 
 def index(request):
     """ Returns the index and registration page """
-    #if request.user.is_authenticated:
-    #    return redirect(profile, user.pk)
+    if request.user.is_authenticated:
+        return redirect(profile, request.user.pk)
     if request.method == "POST":
         registration_form = UserRegistrationForm(request.POST)
         if registration_form.is_valid():
@@ -24,8 +24,6 @@ def index(request):
             messages.error(request, "Sorry. We are unable to register your account at this time.")
     else:
         registration_form = UserRegistrationForm()
-    if request.user.is_authenticated:
-        return redirect(profile, user.pk)
     return render(request, 'index.html', {'registration_form': registration_form})
 
 @login_required

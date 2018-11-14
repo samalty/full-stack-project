@@ -89,12 +89,12 @@ Other than this, there were no cross-browser issues with functionality or design
 
 ## Deployment
 
-
+A Heroku Postgres database was included as an add-on
 
 With the premise being that companies would white-label this application and offer it to their clients, the project demo assumes that the 
 application has been adopted by a fictional company called 'ABC Copywriting'. While when previewing the project, you are able to register 
 and login to new 'client' accounts, much of the functionality is only accessible to the superuser. To access this account, the username is 
-'ABC Copy' and the password is 'ABCopy'.
+'ABCopy' and the password is '1_a9b9c_1'.
 
 ## Credits
 

@@ -52,10 +52,6 @@ class Project(models.Model):
     
     def save(self, *args, **kwargs):
         
-        """ Ensures users can't set a deadline within a week of the current date """
-        if self.deadline < datetime.date.today() + datetime.timedelta(days=7):
-            raise ValidationError('Please ensure that the project deadline is set at least a week in advance')
-        
         """ Calculates the VAT charge based on project cost """
         self.plus_vat = self.fee / 5
         

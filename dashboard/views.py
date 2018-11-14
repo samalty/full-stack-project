@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.core.exceptions import ValidationError
 from .models import Project
 from .forms import ProjectForm, TaskForm, EditForm, ClientEditForm
+import datetime
 
 @login_required()
 def user_dashboard(request):
@@ -43,7 +45,6 @@ def project_detail(request, pk):
         'task4_status': project.task4_status,
         'task5_status': project.task5_status,
     }
-    print(project.id)
     return render(request, 'project_detail.html', context)
 
 @login_required()
@@ -58,7 +59,6 @@ def update_status(request, pk):
             if form.is_valid():
                 project = form.save()
                 project.save()
-                print(project.task1_status)
                 return redirect(project_detail, project.pk)
         else:
             form = TaskForm(instance=project)
@@ -75,6 +75,7 @@ def update_status(request, pk):
 
 @login_required()
 def plan_project(request, pk=None):
+    """ Allows administrators to create new projects """
     if not request.user.is_superuser:
         raise Http404
     else:
@@ -83,8 +84,12 @@ def plan_project(request, pk=None):
             form = ProjectForm(request.POST, instance=project)
             if form.is_valid():
                 project = form.save()
-                project.save()
-                return redirect(project_detail, project.pk)
+                """ Ensures administrators can't set a deadline within a week of the current date """
+                if project.deadline < datetime.date.today() + datetime.timedelta(days=7):
+                    raise ValidationError('Please ensure that the project deadline is set at least a week in advance')
+                else:
+                    project.save()
+                    return redirect(project_detail, project.pk)
         else:
             form = ProjectForm(instance=project)
         context = {

@@ -117,26 +117,6 @@ class ProjectFunctionTests(TestCase):
         """ Tests function has deleted project """
         self.assertTrue(self.project.delete())
     
-    def test_approve_project_function(self):
-        
-        response = self.client.get('/dashboard/{0}/approve/'.format(self.project.pk))
-        
-        """ Tests calling on function results in redirect """
-        self.assertEqual(response.status_code, 302)
-        
-        """ Tests function has approved project """
-        #self.assertTrue(self.project.approved)
-    
-    def test_sign_off_function(self):
-        
-        response = self.client.get('/dashboard/{0}/sign_off/'.format(self.project.pk))
-        
-        """ Tests calling on function results in redirect """
-        self.assertEqual(response.status_code, 302)
-        
-        """ Tests function has approved project """
-        #self.assertTrue(self.project.signed_off)
-    
 class ProjectModelTests(TestCase):
     
     def setUp(self):
@@ -229,6 +209,20 @@ class ProjectFormTests(TestCase):
         self.assertEqual(form.errors['task1'], [u'This field is required.'])
         self.assertEqual(form.errors['task1_status'], [u'This field is required.'])
     
+    def test_project_form_too_soon_deadline(self):
+        
+        form = ProjectForm({'project_title': 'Test Project',
+                            'description': 'This is a test project.',
+                            'client': '1',
+                            'fee': '750.00',
+                            'deadline': '2018-11-02',
+                            'priority': '1',
+                            'task1': 'First task',
+                            'task1_status': 'To Do'})
+        
+        """ Tests form is invalid if deadline set is too soon """
+        self.assertFalse(form.is_valid())
+    
     def test_project_form_valid(self):
     
         user = User.objects.create_user(username='Test',
@@ -240,12 +234,10 @@ class ProjectFormTests(TestCase):
                             'description': 'This is a test project.',
                             'client': '1',
                             'fee': '750.00',
-                            'approved': 'False',
                             'deadline': '2018-12-12',
                             'priority': '1',
                             'task1': 'First task',
-                            'task1_status': 'To Do',
-                            'signed_off': 'False'})
+                            'task1_status': 'To Do'})
         
         """ Tests form can be submitted having filled all necessary fields """
         self.assertTrue(form.is_valid())

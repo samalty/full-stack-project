@@ -8,7 +8,6 @@ class ProjectForm(forms.ModelForm):
                   'description',
                   'client',
                   'fee',
-                  'approved',
                   'deadline',
                   'priority',
                   'task1',
@@ -20,8 +19,7 @@ class ProjectForm(forms.ModelForm):
                   'task4',
                   'task4_status',
                   'task5',
-                  'task5_status',
-                  'signed_off')
+                  'task5_status')
 
 class TaskForm(forms.ModelForm):
     class Meta:

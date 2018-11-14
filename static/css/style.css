@@ -29,6 +29,10 @@ html, body{
     margin-bottom: 20px;
 }
 
+/*::-webkit-scrollbar{
+    display: none;
+}*/
+
 /* >>>>>>>>>>>>>>>>>>>> TABLES <<<<<<<<<<<<<<<<<<<< */
 
 table, th, td{
@@ -50,13 +54,17 @@ table{
 
 .wrapper1, .wrapper2{ 
     width: 100%; 
-    overflow-x: auto; 
     overflow-y: hidden;
 }
 
 .wrapper1{ 
     height: 20px;
     margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.wrapper2{
+    overflow-x: hidden;
 }
 
 .top-scroll{ 
@@ -288,6 +296,10 @@ img{
 
 .stretch-container{
     min-height: 100%;
+}
+
+.container{
+    max-width: 1078px;
 }
 
 #blank-container{
@@ -559,6 +571,14 @@ div.sticky{
     height: 35px;
     width: 45px;
     text-align: center;
+    background: -webkit-linear-gradient(right,#d9d9d9,#b3b3b3);
+    background: -moz-linear-gradient(right,#d9d9d9,#b3b3b3);
+    background: linear-gradient(right,#d9d9d9,#b3b3b3);
+    display: none;
+}
+
+.arrows:not(*:root){
+    display: block;
 }
 
 #arrow{

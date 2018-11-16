@@ -87,6 +87,12 @@ conducted manually within the browser. Once I had confirmed that this worked acr
 property of the bottom scrollbar to hidden. Code was also introduced to ensure that the scrolling buttons don't appear in Firefox browsers. 
 Other than this, there were no cross-browser issues with functionality or design.
 
+## Known issues
+
+Within the urls.py file in the blog folder, the url pattern for the create_or_edit_post page begins with a forward slash. For some reason, 
+removing this forward slash would result in a 404 error whenever the url would be called. I was unable to resolve this issue, and so the 
+forward slash remains.
+
 ## Deployment
 
 The final project was pushed to Github, before being deployed to Heroku by way of connecting to the Github workspace. A Heroku Postgres 

@@ -1,0 +1,744 @@
+/* >>>>>>>>>>>>>>>>>>>> GENERAL <<<<<<<<<<<<<<<<<<<< */
+
+html, body{
+    background: url("../img/office.0c5bd9491eee.jpg"); 
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	display: block;
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+	top: 0;
+	bottom: 0;
+}
+
+.background{
+    background-color: rgba(0,0,0,0.8);
+    z-index: 0;
+    position: relative;
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -60px;
+}
+
+.post-break{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/*::-webkit-scrollbar{
+    display: none;
+}*/
+
+/* >>>>>>>>>>>>>>>>>>>> TABLES <<<<<<<<<<<<<<<<<<<< */
+
+table, th, td{
+    border-collapse: separate;
+    vertical-align: text-top;
+}
+
+table{
+    border-spacing: 30px 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+.dashboard-table{
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.wrapper1, .wrapper2{ 
+    width: 100%; 
+    overflow-y: hidden;
+}
+
+.wrapper1{ 
+    height: 20px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.wrapper2{
+    overflow-x: hidden;
+}
+
+.top-scroll{ 
+    height: 20px; 
+}
+
+.bottom-scroll{
+    overflow: none;
+    margin: auto;
+}
+
+th, td{
+    border: 2px solid #f2f2f2;
+    padding: 5px;
+}
+
+th{
+    border-top-right-radius: 70%;
+    border-top-left-radius: 70%;
+    padding-top: 20px;
+}
+
+.gradient{
+    background: -webkit-linear-gradient(right,#d9d9d9,#b3b3b3);
+    background: -moz-linear-gradient(right,#d9d9d9,#b3b3b3);
+    background: linear-gradient(right,#d9d9d9,#b3b3b3);
+}
+
+.dashboard-table th, td{
+    min-width: 310px;
+    max-width: 310px;
+}
+
+.project-detail{
+    min-width: 310px;
+    max-width: 510px;
+    width: 100%;
+}
+
+.invisible{
+    z-index: 0;
+}
+
+/* >>>>>>>>>>>>>>>>>>>> TEXT <<<<<<<<<<<<<<<<<<<< */
+
+h1,
+h2,
+h3,
+h4{
+    align-self: center;
+    color: #d9d9d9;
+    font-family: 'Do Hyeon', sans-serif;
+    position: relative;
+    z-index: 1;
+}
+
+p{
+    color: #d9d9d9;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 18px;
+}
+
+.checkout-head{
+    color: #000000;
+    font-family: 'Do Hyeon', sans-serif;
+    margin-bottom: 30px;
+}
+
+.checkout{
+    color: #000000;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 18px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.invoice{
+    color: #000000;
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 18px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.blog-text{
+    color: #262626;
+    font-family: 'Bree Serif', serif;
+    position: relative;
+    z-index: 1;
+}
+
+.popup-message{
+    color: #d9d9d9;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.project_sheet{
+    color: #000000;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 18px;
+    margin-bottom: 0px;
+}
+
+.project_sheet_tasks{
+    color: #000000;
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 16px;
+    margin-bottom: 0px;
+}
+
+.task_status{
+    color: #d9d9d9;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 18px;
+    margin-bottom: 0px;
+}
+
+.edit_tasks{
+    color: #000000;
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 16px;
+    margin-top: 2px;
+}
+
+.project_status{
+    color: #f2f2f2;
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 24px;
+    margin-bottom: 0px;
+}
+
+.order-by{
+    margin-top: 5px;
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+
+.error{
+    color: red;
+}
+
+/* >>>>>>>>>>>>>>>>>>>> NAVBAR <<<<<<<<<<<<<<<<<<<< */
+
+.navbar{
+    background-color: #3d5c5c;
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+}
+
+.navbar-collapse{
+    background-color: #3d5c5c;
+    padding-left: 30px;
+    border-bottom-color: #527a7a;
+}
+
+.navbar-brand{
+    color: #d9d9d9;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 30px;
+}
+
+.navbar-brand:hover{
+    color: #d9d9d9;
+}
+
+.nav-item{
+    color: #d9d9d9;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 22px;
+    margin-right: 5px;
+}
+
+.nav-item:hover{
+    color: #f2f2f2;
+}
+
+.navbar-toggler-icon{
+    color: #ffffff;
+}
+
+/* >>>>>>>>>>>>>>>>>>>> HEADER <<<<<<<<<<<<<<<<<<<< */
+
+#header{
+    background-color: #293d3d;
+    border-bottom: 5px solid #3d5c5c;
+    -webkit-filter: opacity(0.9);
+    position: relative;
+    z-index: 1;
+}
+
+.header-desc{
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* >>>>>>>>>>>>>>>>>>>> IMAGES <<<<<<<<<<<<<<<<<<<< */
+
+img{
+    border-radius: 50%;
+    max-height: 150px;
+    max-width: 150px;
+    position: relative;
+    z-index: 1;
+}
+
+.img-circle{
+    margin: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.profile{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* >>>>>>>>>>>>>>>>>>>> CONTAINERS <<<<<<<<<<<<<<<<<<<< */
+
+.stretch-container{
+    min-height: 100%;
+}
+
+.container{
+    max-width: 1078px;
+}
+
+#blank-container{
+    background-color: #f2f2f2;
+    padding: 25px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#checkout-container{
+    background-color: #f2f2f2;
+    padding: 50px;
+    margin-bottom: 50px;
+}
+
+#bio-container{
+    background-color: #293d3d;
+    border: 5px solid #3d5c5c;
+    border-radius: 5%;
+    padding: 15px;
+    -webkit-filter: opacity(0.9);
+    position: relative;
+    z-index: 100;
+    margin-bottom: 50px;
+}
+
+.popup-container{
+    background-color: #293d3d;
+    border: 5px solid #3d5c5c;
+    border-radius: 5%;
+    padding: 15px;
+    -webkit-filter: opacity(0.9);
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+#task-status{
+    text-align: center;
+}
+
+.project_desc{
+    width: 100%;
+    margin-top: 0px;
+    padding: 2px 5px;
+    background-color: #e6e6e6;
+}
+
+.task_desc{
+    width: 100%;
+    margin-top: 5px;
+    padding: 2px 5px;
+    background-color: #e6e6e6;
+}
+
+.green{
+    border: 2px solid #006622;
+    border-radius: 15%;
+    background: -webkit-linear-gradient(right,#009963,#006642);
+    background: -moz-linear-gradient(right,#009963,#006642);
+    background: linear-gradient(right,#009963,#006642);
+    text-align: center;
+}
+
+.orange{
+    border: 2px solid #cc7a00;
+    border-radius: 15%;
+    background: -webkit-linear-gradient(right,#ff9900,#cc7a00);
+    background: -moz-linear-gradient(right,#ff9900,#cc7a00);
+    background: linear-gradient(right,#ff9900,#cc7a00);
+    text-align: center;
+}
+
+.red{
+    border: 2px solid #990000;
+    border-radius: 15%;
+    background: -webkit-linear-gradient(right,#cc0000,#990000);
+    background: -moz-linear-gradient(right,#cc0000,#990000);
+    background: linear-gradient(right,#cc0000,#990000);
+    text-align: center;
+}
+
+.status_green{
+    border: 2px solid #f2f2f2;
+    text-align: center;
+    background: -webkit-linear-gradient(right,#009963,#006642);
+    background: -moz-linear-gradient(right,#009963,#006642);
+    background: linear-gradient(right,#009963,#006642);
+}
+
+.status_orange{
+    border: 2px solid #f2f2f2;
+    text-align: center;
+    background: -webkit-linear-gradient(right,#ff9900,#cc7a00);
+    background: -moz-linear-gradient(right,#ff9900,#cc7a00);
+    background: linear-gradient(right,#ff9900,#cc7a00);
+}
+
+.status_red{
+    border: 2px solid #f2f2f2;
+    text-align: center;
+    background: -webkit-linear-gradient(right,#cc0000,#990000);
+    background: -moz-linear-gradient(right,#cc0000,#990000);
+    background: linear-gradient(right,#cc0000,#990000);
+}
+
+.edit-container{
+    text-align: center;
+}
+
+#shade{
+    background-color: #d9d9d9;
+}
+
+.invoice-container{
+    width: 270px;
+    margin: auto;
+    padding: 3px;
+}
+
+#profile{
+    background-color: #f2f2f2;
+    height: 80%;
+    padding: 50px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border: solid 5px #3d5c5c;
+    border-top-right-radius: 10%;
+}
+
+/* >>>>>>>>>>>>>>>>>>>> FORMS <<<<<<<<<<<<<<<<<<<< */
+    
+form{
+    background-color: #293d3d;
+    border: 5px solid #3d5c5c;
+    border-radius: 5%;
+    padding: 15px;
+    -webkit-filter: opacity(0.9);
+}
+
+legend{
+    align-self: center;
+    color: #d9d9d9;
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+select{
+    margin-top: 7px;
+    min-width: 85px;
+}
+
+.field-wrapper{
+    display: block;
+    width: 100%;
+}
+
+.login{
+    text-align: center;
+    margin: 0 auto;
+    width: 300px;
+    color: #d9d9d9;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 18px;
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.register{
+    text-align: center;
+    margin: 0 auto;
+    min-width: 300px;
+    max-width: 400px;
+    color: #d9d9d9;
+    font-family: 'Do Hyeon', sans-serif;
+    font-size: 18px;
+    text-align: left;
+    margin-bottom: 50px;
+}
+
+.new-blog{
+    background-color: #f2f2f2;
+    border: 5px solid #a6a6a6;
+    border-radius: 0;
+    padding: 15px;
+    padding-bottom: 25px;
+    -webkit-filter: opacity(1.0);
+    font-family: 'Bree Serif', serif;
+    font-size: 22px;
+    margin-bottom: 50px;
+}
+
+.project{
+    background-color: #f2f2f2;
+    border: 5px solid #a6a6a6;
+    border-radius: 1%;
+    padding: 30px 25px;
+    -webkit-filter: opacity(1.0);
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 18px;
+    margin-bottom: 50px;
+}
+
+.payment{
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: #f2f2f2;
+    border: 5px solid #a6a6a6;
+    border-radius: 1%;
+    padding: 30px 40px;
+    min-width: 310px;
+    max-width: 710px;
+    -webkit-filter: opacity(1.0);
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 14px;
+}
+
+.payment-legend{
+    text-align: center;
+    margin-bottom: 20px;
+    color: #595959;
+}
+
+#confirm{
+    background-color: #f2f2f2;
+    border: 0px solid #f2f2f2;
+    text-align: center;
+    padding: 0px;
+}
+
+.status-update{
+    background-color: #e6e6e6;
+    border: 0px solid #ffffff;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    border-radius: 0;
+}
+
+div.sticky{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 65px;
+    height: 90px;
+    background-color: #527a7a;
+    border-bottom: 5px solid #3d5c5c;
+    border-bottom-right-radius: 30%;
+    width: 101%;
+    text-align: center;
+    z-index: 100;
+}
+
+.option{
+    background-color: #527a7a;
+    border: 5px solid #527a7a;
+    border-radius: 0%;
+    height: 80px;
+    padding: 0px;
+    margin-bottom: 0px;
+    width: 100%;
+    text-align: center;
+    z-index: 100;
+}
+
+/* >>>>>>>>>>>>>>>>>>>> BUTTONS <<<<<<<<<<<<<<<<<<<< */
+
+.arrows{
+    margin-top: 30px;
+    border-radius: 10%;
+    height: 35px;
+    width: 45px;
+    text-align: center;
+    background: -webkit-linear-gradient(right,#d9d9d9,#b3b3b3);
+    background: -moz-linear-gradient(right,#d9d9d9,#b3b3b3);
+    background: linear-gradient(right,#d9d9d9,#b3b3b3);
+    display: none;
+}
+
+.arrows:not(*:root){
+    display: block;
+}
+
+#arrow{
+    font-size: 22px;
+    color: #3d5c5c;
+    margin: auto;
+}
+
+#save{
+    font-family: 'Bree Serif', serif;
+    font-size: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+#edit{
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 20px;
+    background-color: #002966;
+    border: 2px solid #d9d9d9;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+#account{
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 20px;
+    color: #293d3d;
+    background-color: #d9d9d9;
+    position: relative;
+    z-index: 1;
+}
+
+#update{
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 12px;
+    color: #ffffff;
+    background-color: #002966;
+    border: 2px solid #d9d9d9;
+    width: 118px;
+    height: 30px;
+    margin-left: 21px;
+    position: relative;
+    z-index: 1;
+    margin-top: 4px;
+}
+
+#launch{
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #2e5cb8;
+    width: 160px;
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 1;
+}
+
+#delete{
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 24px;
+    background: -webkit-linear-gradient(right,#cc0000,#990000);
+    background: -moz-linear-gradient(right,#cc0000,#990000);
+    background: linear-gradient(right,#cc0000,#990000);
+    border: 0px solid #d9d9d9;
+    display: block;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+
+#approve{
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 16px;
+    background: -webkit-linear-gradient(right,#009963,#008053);
+    background: -moz-linear-gradient(right,#009963,#008053);
+    background: linear-gradient(right,#009963,#008053);
+    border: 2px solid #d9d9d9;
+    width: 100%;
+    height: 38px;
+    position: relative;
+    z-index: 1;
+}
+
+#pay{
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 24px;
+    background: -webkit-linear-gradient(right,#009963,#006642);
+    background: -moz-linear-gradient(right,#009963,#006642);
+    background: linear-gradient(right,#009963,#006642);
+    color: #ffffff;
+    border: 0px solid #d9d9d9;
+    display: block;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+
+#checkout{
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 24px;
+    background: -webkit-linear-gradient(right,#009963,#008053);
+    background: -moz-linear-gradient(right,#009963,#008053);
+    background: linear-gradient(right,#009963,#008053);
+    color: #ffffff;
+    border: 0px solid #d9d9d9;
+    display: block;
+    margin: auto;
+    width: 270px;
+    height: 50px;
+}
+
+#submit-payment{
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 24px;
+    background-color: #009963;
+    color: #ffffff;
+    border: 0px solid #d9d9d9;
+    display: block;
+    margin: auto;
+    width: 250px;
+}
+
+#blog-blue{
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 16px;
+    background-color: #2e5cb8;
+    height: 35px;
+    width: 95px;
+    margin-bottom: 10px;
+    margin-right: 2px;
+    position: relative;
+    z-index: 1;
+}
+
+#blog-red{
+    font-family: 'Signika Negative', sans-serif;
+    font-size: 16px;
+    background-color: #cc0000;
+    height: 35px;
+    width: 95px;
+    margin-bottom: 10px;
+    margin-right: 2px;
+    position: relative;
+    z-index: 1;
+}
+
+/* >>>>>>>>>>>>>>>>>>>> Footer <<<<<<<<<<<<<<<<<<<< */
+
+footer{
+    background-color: #527a7a;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    margin-top: 50px;
+    padding: 15px;
+    height: 65px;
+    text-align: center;
+    border-top: 5px solid #3d5c5c;
+}

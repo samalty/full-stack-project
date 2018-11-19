@@ -17,9 +17,9 @@ def index(request):
             user = auth.authenticate(username=request.POST['username'],
                                      password=request.POST['password1'])
             UserProfile.objects.create(user=user)
-        if user:
+        if request.user:
             auth.login(user=user,request=request)
-            return redirect(profile, user.pk)
+            return redirect(profile, request.user.pk)
         else:
             messages.error(request, "Sorry. We are unable to register your account at this time.")
     else:
@@ -42,9 +42,9 @@ def login(request):
         if login_form.is_valid():
             user = auth.authenticate(username=request.POST['username'],
                                      password=request.POST['password'])
-            if user:
+            if request.user:
                 auth.login(user=user, request=request)
-                return redirect(profile, user.pk)
+                return redirect(profile, request.user.pk)
             else:
                 login_form.add_error(None, "Sorry. The username and password \
                 combination that you entered wasn't recognised.")

@@ -17,9 +17,9 @@ def index(request):
             user = auth.authenticate(username=request.POST['username'],
                                      password=request.POST['password1'])
             UserProfile.objects.create(user=user)
-        if user:
-            auth.login(user=user,request=request)
-            return redirect(profile, user.pk)
+            if user:
+                auth.login(user=user,request=request)
+                return redirect(profile, user.pk)
         else:
             messages.error(request, "Sorry. We are unable to register your account at this time.")
     else:

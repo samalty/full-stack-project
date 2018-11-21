@@ -60,8 +60,10 @@ def profile(request, pk):
 @login_required
 def edit_profile(request, pk):
     """ Presents a form enabling user to edit their profile """
-    user = User.objects.get(email=request.user.email, pk=pk)
-    post = get_object_or_404(UserProfile, pk=pk) if pk else None
+    user = User.objects.get(email=request.user.email, user=pk)
+    post = get_object_or_404(UserProfile, user=pk) if pk else None
+    #user = User.objects.get(email=request.user.email, pk=pk)
+    #post = get_object_or_404(UserProfile, pk=pk) if pk else None
     if request.method == "POST":
         form = EditProfileForm(request.POST, instance=request.user.userprofile)
         if form.is_valid():
@@ -74,8 +76,10 @@ def edit_profile(request, pk):
 @login_required
 def update_image(request, pk):
     """ Presents a form enabling user to update their profile image """
-    user = User.objects.get(email=request.user.email, pk=pk)
-    post = get_object_or_404(UserProfile, pk=pk) if pk else None
+    user = User.objects.get(email=request.user.email, user=pk)
+    post = get_object_or_404(UserProfile, user=pk) if pk else None
+    #user = User.objects.get(email=request.user.email, pk=pk)
+    #post = get_object_or_404(UserProfile, pk=pk) if pk else None
     if request.method == "POST":
         form = EditImageForm(request.POST, request.FILES, instance=request.user.userprofile)
         if form.is_valid():

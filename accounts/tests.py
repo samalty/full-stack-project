@@ -159,7 +159,7 @@ class UserProfileModelTests(TestCase):
         self.assertEqual(self.profile.location, 'Coventry, UK')
         
         """ Tests default image for new users """
-        self.assertEqual(str(self.profile.image), 'https://s3.eu-west-2.amazonaws.com/full-stack-project/static/profile_img/anon.png')
+        self.assertEqual(str(self.profile.image), 'anon.png')
     
     def test_profile_function_for_new_users(self):
                                  

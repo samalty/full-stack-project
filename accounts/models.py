@@ -9,7 +9,7 @@ class UserProfile(models.Model):
     bio = models.TextField(max_length=400, default='', blank=True)
     location = models.CharField(max_length=100, default='', blank=True)
     website = models.URLField(default='', blank=True)
-    image = models.ImageField(upload_to='profile_img', default='https://s3.eu-west-2.amazonaws.com/full-stack-project/static/profile_img/anon.png', blank=False)
+    image = models.ImageField(upload_to='profile_img', default='anon.png', blank=False)
     
     def __str__(self):
         return self.user.username

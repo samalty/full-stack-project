@@ -6,7 +6,7 @@ from accounts.forms import UserLoginForm, UserRegistrationForm, EditProfileForm,
 from accounts.models import UserProfile
 from blog.models import Post
 
-def index(request, user):
+def index(request):
     """ Returns the index and registration page """
     if request.user.is_authenticated:
         return redirect(profile, request.user.pk)

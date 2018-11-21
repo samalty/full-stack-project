@@ -8,7 +8,6 @@ from blog.models import Post
 
 def index(request):
     """ Returns the index and registration page """
-    global user
     if request.user.is_authenticated:
         return redirect(profile, request.user.pk)
     if request.method == "POST":

@@ -16,7 +16,6 @@ def index(request):
             registration_form.save()
             user = auth.authenticate(username=request.POST['username'],
                                      password=request.POST['password1'])
-#            UserProfile.objects.create(user=user)
             if user:
                 auth.login(user=user,request=request)
                 return redirect(profile, user.pk)

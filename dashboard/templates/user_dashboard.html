@@ -54,8 +54,8 @@
                     <table class="dashboard-table">
                         <tr>
                             {% for project in projects %}
-                            <th class="{% if project.signed_off == True %} status_green {% elif project.task1_status != 'To Do' %} status_orange {% else %} status_red {% endif %}">
-                                <p class="project_status" id="p_title">{{ project.project_title }}</p>
+                            <th class="{% if project.signed_off == True %} status_green {% elif project.task1_status != 'To Do' %} status_orange {% else %} status_red {% endif %}" id="p_title">
+                                <p class="project_status">{{ project.project_title }}</p>
                             </th>
                             {% endfor %}
                         </tr>
@@ -362,8 +362,8 @@
                         <tr>
                             {% for project in projects %}
                             {% if user == project.client %}
-                            <th class="{% if project.signed_off == True %} status_green {% elif project.task1_status != 'To Do' %} status_orange {% else %} status_red {% endif %}">
-                                <p class="project_status" id="p_title">{{ project.project_title }}</p>
+                            <th class="{% if project.signed_off == True %} status_green {% elif project.task1_status != 'To Do' %} status_orange {% else %} status_red {% endif %}" id="p_title">
+                                <p class="project_status">{{ project.project_title }}</p>
                             </th>
                             {% endif %}
                             {% endfor %}

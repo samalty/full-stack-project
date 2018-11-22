@@ -109,7 +109,8 @@ master branch.
 With the premise being that companies would white-label this application and offer it to their clients, the project demo assumes that the 
 application has been adopted by a fictional company called 'ABC Copywriting'. While when previewing the project, you are able to register 
 and login to new 'client' accounts, much of the functionality is only accessible to the superuser. To access this account, the username is 
-'ABCopy' and the password is '1_a9b9c_1'.
+'ABCopy' and the password is '1_a9b9c_1'. To test the payment feature, log in using the following credentials: 'GWT_ltd' (username), 
+'gwtharry82' (password). This account's dashboard contains a completed, unpaid project where the payment feature is accessible.
 
 ## Credits
 

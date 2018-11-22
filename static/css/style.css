@@ -108,10 +108,6 @@ th{
     z-index: 0;
 }
 
-#table_head{
-    padding-top: 20px;
-}
-
 /* >>>>>>>>>>>>>>>>>>>> TEXT <<<<<<<<<<<<<<<<<<<< */
 
 h1,
@@ -212,6 +208,10 @@ p{
 
 .error{
     color: red;
+}
+
+#p_title{
+    margin-top: 15px;
 }
 
 /* >>>>>>>>>>>>>>>>>>>> NAVBAR <<<<<<<<<<<<<<<<<<<< */
